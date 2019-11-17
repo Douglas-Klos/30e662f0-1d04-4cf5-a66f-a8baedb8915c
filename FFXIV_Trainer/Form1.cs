@@ -15,6 +15,7 @@ namespace FFXIV_Trainer
     {
         FinalFantasy ffxiv;
         KeyboardScanCodes ksc;
+        Thread thr;
         public Form1()
         {
             ffxiv = new FinalFantasy();
@@ -22,8 +23,9 @@ namespace FFXIV_Trainer
             InitializeComponent();
 
             this.character_rtb.Text = "";
-            this.character_rtb.Text += "Mana: " + ffxiv.get_current_mana() + " / " + ffxiv.get_max_mana() + "\n";
-            this.character_rtb.Text += "HP: " + ffxiv.get_current_hp() + " / " + ffxiv.get_max_hp() + "\n";
+            //this.character_rtb.Text += "Mana: " + ffxiv.get_current_mana() + " / " + ffxiv.get_max_mana() + "\n";
+            //this.character_rtb.Text += "HP: " + ffxiv.get_current_hp() + " / " + ffxiv.get_max_hp() + "\n";
+            this.character_rtb.Refresh();
 
             foreach (string macro in ffxiv.Macros.Keys)
             {
@@ -33,6 +35,19 @@ namespace FFXIV_Trainer
 
         }
 
+        public void AppendTextBox(string value)
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action<string>(AppendTextBox), new object[] { value });
+                return;
+            }
+            this.general_info_textbox.AppendText(value);
+            this.general_info_textbox.SelectionStart = this.general_info_textbox.Text.Length;
+            this.general_info_textbox.ScrollToCaret();
+        }
+
+        // Crafting
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.macro_rotation_rtb.Text = "";
@@ -42,10 +57,10 @@ namespace FFXIV_Trainer
                 this.macro_rotation_rtb.Text += spell;
                 this.macro_rotation_rtb.Text += "\n";
             }
-             
+
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void execute_crafting_Click(object sender, EventArgs e)
         {
             this.general_info_textbox.Text = "Crafting . . .\n";
 
@@ -53,13 +68,13 @@ namespace FFXIV_Trainer
             {
                 this.general_info_textbox.Text += ". . ." + spell + "\n";
                 this.general_info_textbox.Refresh();
-                //ffxiv.send_keys(ffxiv.CraftingSpells[spell]);
-                //Thread.Sleep(50);
+                //ffxiv.send_key_down_up(ffxiv.CraftingSpells[spell]);
                 Thread.Sleep(ffxiv.CraftingSpells[spell][2]);
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        // Character Sheet
+        private void refresh_character_Click(object sender, EventArgs e)
         {
             this.character_rtb.Text = "";
             this.character_rtb.Text += "Mana: " + ffxiv.get_current_mana() + " / " + ffxiv.get_max_mana() + "\n";
@@ -67,138 +82,172 @@ namespace FFXIV_Trainer
             this.character_rtb.Text += "Lowest Marketboard Price :" + ffxiv.get_lowest_marketboard_price() + "\n";
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
+        // Market
 
-            short[] select = { ksc.get_key_code("NUMPAD0"), ksc.get_key_code("NULL") };
-            short[] up = { ksc.get_key_code("NUMPAD8"), ksc.get_key_code("NULL") };
-            short[] down = { ksc.get_key_code("NUMPAD2"), ksc.get_key_code("NULL") };
-            short[] escape = { ksc.get_key_code("ESCAPE"), ksc.get_key_code("NULL") };
-            short[] enter = { ksc.get_key_code("RETURN"), ksc.get_key_code("NULL") };
-
-            //ffxiv.send_keys(select);
-            //Thread.Sleep(1000);
-            ffxiv.send_keys(select);
-            Thread.Sleep(1000);
-            ffxiv.send_keys(select);
-            Thread.Sleep(1000);
-            ffxiv.send_keys(select);
-            Thread.Sleep(2000);
-
-            update_prices(Convert.ToInt32(this.first_retainer_number_of_items_tb.Text), Convert.ToInt32(this.first_retainer_minimum_tb.Text), Convert.ToInt32(this.first_retainer_default_tb.Text));
-        }
-
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-            short[] select = { ksc.get_key_code("NUMPAD0"), ksc.get_key_code("NULL") };
-            short[] up = { ksc.get_key_code("NUMPAD8"), ksc.get_key_code("NULL") };
-            short[] down = { ksc.get_key_code("NUMPAD2"), ksc.get_key_code("NULL") };
-            short[] escape = { ksc.get_key_code("ESCAPE"), ksc.get_key_code("NULL") };
-            short[] enter = { ksc.get_key_code("RETURN"), ksc.get_key_code("NULL") };
-
-
-            //ffxiv.send_keys(select);
-            //Thread.Sleep(1000); ;
-            ffxiv.send_keys(down);
-            Thread.Sleep(1000);
-            ffxiv.send_keys(down);
-            Thread.Sleep(1000);
-            ffxiv.send_keys(select);
-            Thread.Sleep(1000);
-            ffxiv.send_keys(select);
-            Thread.Sleep(2000);
-            
-            update_prices(Convert.ToInt32(this.second_retainer_number_of_items_tb.Text), Convert.ToInt32(this.second_retainer_minimum_tb.Text), Convert.ToInt32(this.second_retainer_default_tb.Text));
-        }
-
-
-    
-        private void update_prices(int number_of_items, int minimum, int reset)
+        private void update_prices(int number_of_items, int minimum, int maximum, int undercut, int reset)
         {
             int lowest_price = 0;
             int new_price = 0;
 
-            short[] select = { ksc.get_key_code("NUMPAD0"), ksc.get_key_code("NULL") };
-            short[] up = { ksc.get_key_code("NUMPAD8"), ksc.get_key_code("NULL") };
-            short[] down = { ksc.get_key_code("NUMPAD2"), ksc.get_key_code("NULL") };
-            short[] escape = { ksc.get_key_code("ESCAPE"), ksc.get_key_code("NULL") };
-            short[] enter = { ksc.get_key_code("RETURN"), ksc.get_key_code("NULL") };
+            short select = ksc.get_key_code("NUMPAD0");
+            short up = ksc.get_key_code("NUMPAD8");
+            short down = ksc.get_key_code("NUMPAD2");
+            short escape = ksc.get_key_code("ESCAPE");
+            short enter = ksc.get_key_code("RETURN");
 
-            ffxiv.send_keys(down);
-            Thread.Sleep(500);
-            ffxiv.send_keys(down);
-            Thread.Sleep(500);
-            ffxiv.send_keys(select);
-            Thread.Sleep(500);
+            Thread.Sleep(1000);
+            ffxiv.send_key_down_up(down);
+            Thread.Sleep(250);
+            ffxiv.send_key_down_up(down);
+            Thread.Sleep(250);
+            ffxiv.send_key_down_up(select);
+            Thread.Sleep(1000);
 
 
             for (int loop_counter = 0; loop_counter < number_of_items; loop_counter++)
             {
-                ffxiv.send_keys(select);
-                Thread.Sleep(500);
-                ffxiv.send_keys(select);
-                Thread.Sleep(500);
-                ffxiv.send_keys(up);
-                Thread.Sleep(500);
-                ffxiv.send_keys(select);
+                ffxiv.send_key_down_up(select);
+                Thread.Sleep(150);
+                ffxiv.send_key_down_up(select);
+                Thread.Sleep(150);
+                ffxiv.send_key_down_up(up);
+                Thread.Sleep(150);
+                ffxiv.send_key_down_up(select);
                 Thread.Sleep(1500);
-                lowest_price = ffxiv.get_lowest_marketboard_price();
-                new_price = lowest_price - 1;
 
-                this.general_info_textbox.Text += "Updating item #" + loop_counter + "\n";
-                this.general_info_textbox.Refresh();
-                this.general_info_textbox.Text += ". . . lowest price: " + lowest_price + "\n";
-                this.general_info_textbox.Refresh();
+
+                AppendTextBox("Updating item #" + loop_counter + "\n");
+                if (ffxiv.get_quality() == 0)
+                {
+                    AppendTextBox(". . . First listed item is low quality\n");
+                    AppendTextBox(". . . Price of second item :" + ffxiv.get_next_price() + "\n");
+                    lowest_price = ffxiv.get_next_price();
+                }
+                else
+                {
+                    lowest_price = ffxiv.get_lowest_marketboard_price();
+                }
+
+                
+                
+                new_price = lowest_price - undercut;
+
+                
+                AppendTextBox(". . . lowest price: " + lowest_price + "\n");
 
                 if (new_price < minimum)
                 {
-                    this.general_info_textbox.Text += ". . . item under minimum price, posting at default";
+
+                    AppendTextBox(". . . item under minimum price, posting at default");
+                    new_price = reset;
+                }
+                if (new_price > maximum)
+                {
+                    AppendTextBox(". . . item under minimum price, posting at default");
                     new_price = reset;
                 }
 
 
-                this.general_info_textbox.Text += ". . . posted price: " + new_price + "\n";
-                this.general_info_textbox.Refresh();
+                AppendTextBox(". . . posted price: " + new_price + "\n");
 
-                ffxiv.send_keys(escape);
-                Thread.Sleep(500);
-                ffxiv.send_keys(down);
-                Thread.Sleep(500);
-                ffxiv.send_keys(select);
-                Thread.Sleep(500);
-                ffxiv.send_keys(enter);
-                Thread.Sleep(100);
-                ffxiv.send_keys(escape);
-                Thread.Sleep(500);
+                ffxiv.send_key_down_up(escape);
+                Thread.Sleep(150);
+                ffxiv.send_key_down_up(down);
+                Thread.Sleep(150);
+                ffxiv.send_key_down_up(select);
+                Thread.Sleep(150);
+                ffxiv.send_key_down_up(enter);
+                Thread.Sleep(150);
+                ffxiv.send_key_down_up(escape);
+                Thread.Sleep(150);
 
                 foreach (char letter in new_price.ToString())
                 {
-                    ffxiv.send_key(ksc.get_key_code(letter.ToString()));
+                    ffxiv.send_key_down(ksc.get_key_code(letter.ToString()));
                     Thread.Sleep(50);
                 }
-                ffxiv.send_keys(enter);
-                Thread.Sleep(500);
-                ffxiv.send_keys(down);
+                ffxiv.send_key_down_up(enter);
+                Thread.Sleep(150);
+                ffxiv.send_key_down_up(down);
                 Thread.Sleep(100);
-                ffxiv.send_keys(down);
+                ffxiv.send_key_down_up(down);
                 Thread.Sleep(100);
-                ffxiv.send_keys(select);
-                Thread.Sleep(500);
-                ffxiv.send_keys(down);
+                ffxiv.send_key_down_up(select);
+                Thread.Sleep(250);
+                ffxiv.send_key_down_up(down);
                 Thread.Sleep(100);
 
             }
-            ffxiv.send_keys(escape);
-            Thread.Sleep(250);
-            ffxiv.send_keys(escape);
-            Thread.Sleep(250);
-            ffxiv.send_keys(select);
-            Thread.Sleep(250);
-            ffxiv.send_keys(escape);
-            Thread.Sleep(250);
+            ffxiv.send_key_down_up(escape);
+            Thread.Sleep(150);
+            ffxiv.send_key_down_up(escape);
+            Thread.Sleep(150);
+            ffxiv.send_key_down_up(select);
+            Thread.Sleep(150);
+            ffxiv.send_key_down_up(escape);
+            Thread.Sleep(150);
 
+        }
+
+        private void start_thread_1()
+        {
+            short select = ksc.get_key_code("NUMPAD0");
+
+            Thread.Sleep(1000);
+            ffxiv.send_key_down_up(select);
+            Thread.Sleep(250);
+            ffxiv.send_key_down_up(select);
+            Thread.Sleep(2000);
+            ffxiv.send_key_down_up(select);
+            Thread.Sleep(1000);
+            update_prices(Convert.ToInt32(this.first_retainer_number_of_items_tb.Text), Convert.ToInt32(this.first_retainer_minimum_tb.Text), Convert.ToInt32(this.first_retainer_maximum_tb.Text), Convert.ToInt32(this.first_retainer_undercut.Text), Convert.ToInt32(this.first_retainer_default_tb.Text));
+        }
+        private void start_thread_2()
+        {
+            short select = ksc.get_key_code("NUMPAD0");
+            short down = ksc.get_key_code("NUMPAD2");
+
+            Thread.Sleep(1000);
+            ffxiv.send_key_down_up(down);
+            Thread.Sleep(100);
+            ffxiv.send_key_down_up(down);
+            Thread.Sleep(100);
+            ffxiv.send_key_down_up(select);
+            Thread.Sleep(3000);
+            ffxiv.send_key_down_up(select);
+            Thread.Sleep(1000);
+
+            update_prices(Convert.ToInt32(this.second_retainer_number_of_items_tb.Text), Convert.ToInt32(this.second_retainer_minimum_tb.Text), Convert.ToInt32(this.second_retainer_maximum_tb.Text), Convert.ToInt32(this.second_retainer_undercut.Text), Convert.ToInt32(this.second_retainer_default_tb.Text));
+        }
+
+
+        private void first_retainer_thread_1_Click(object sender, EventArgs e)
+        {
+            thr.Abort();
+            thr = new Thread(new ThreadStart(this.start_thread_1));
+            thr.Start();
+        }
+
+        private void second_retainer_thread_1_Click(object sender, EventArgs e)
+        {
+            thr.Abort();
+            thr = new Thread(new ThreadStart(this.start_thread_2));
+            thr.Start();
+        }
+
+        private void kill_thread_1_Click(object sender, EventArgs e)
+        {
+            thr.Abort();
+        }
+
+        private void kill_thread_2_Click(object sender, EventArgs e)
+        {
+            thr.Abort();
+        }
+
+        private void test_button_Click(object sender, EventArgs e)
+        {
+            AppendTextBox(ffxiv.get_lowest_marketboard_price().ToString());
         }
     }
 }

@@ -1,32 +1,44 @@
 ﻿using System;
 using System.Text;
+using System.Xml;
+using System.Xml.Linq;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace FFXIV_Trainer
 {
+
+
     class FinalFantasy
     {
-
-        [DllImport("kernel32.dll")]
-        public static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
-        [DllImport("kernel32.dll")]
-        public static extern bool ReadProcessMemory(int hProcess, Int64 lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
-        [DllImport("user32.dll")]
-        public static extern IntPtr PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
-        const int PROCESS_WM_READ = 0x0010;
-        IntPtr processHandle = IntPtr.Zero;
-        IntPtr BaseAddress = IntPtr.Zero;
-        IntPtr ReadAddress = IntPtr.Zero;
-        Int64 new_addr = 0;
-        Process process;
+        public Offsets offsets;
         public Dictionary<string, short[]> CraftingSpells;
         public Dictionary<string, string[]> Macros;
 
+        [DllImport("kernel32.dll")]
+        public static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
+
+        [DllImport("kernel32.dll")]
+        public static extern bool ReadProcessMemory(int hProcess, Int64 lpBaseAddress, byte[] lpBuffer, int dwSize, ref int lpNumberOfBytesRead);
+        
+        [DllImport("user32.dll")]
+        public static extern IntPtr PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+        
+        private const int PROCESS_WM_READ = 0x0010;
+        private Process process;
+        
+        private IntPtr processHandle = IntPtr.Zero;
+        private IntPtr BaseAddress = IntPtr.Zero;
+        private IntPtr ReadAddress = IntPtr.Zero;
+        private long new_addr = 0;
+        
         public FinalFantasy()
         {
             KeyboardScanCodes ksc = new KeyboardScanCodes();
+            
+       
+            offsets = load_offsets(); 
             process = Process.GetProcessesByName("ffxiv_dx11")[0];
             processHandle = OpenProcess(PROCESS_WM_READ, false, process.Id);
             BaseAddress = process.MainModule.BaseAddress;
@@ -83,100 +95,82 @@ namespace FFXIV_Trainer
                 {"70d 538cp", new string[] {"reflect", "ingenuity", "innovation", "delicate_synthesis", "delicate_synthesis", "delicate_synthesis", "delicate_synthesis", "manipulation", "ingenuity", "innovation", "delicate_synthesis", "delicate_synthesis", "great_strides", "byregots_blessing", "careful_synthesis"}},
                 {"70d 620cp", new string[] {"reflect", "ingenuity", "innovation", "delicate_synthesis",  "delicate_synthesis",  "delicate_synthesis",  "delicate_synthesis", "manipulation", "ingenuity", "innovation", "delicate_synthesis", "delicate_synthesis", "delicate_synthesis", "delicate_synthesis", "prudent_touch", "great_strides", "ingenuity", "innovation", "standard_touch", "great_strides", "byregots_blessing", "careful_synthesis"}},
             };
-
-
         }
 
-        public string get_target_name()
+        public Offsets load_offsets()
         {
-            int offset = 0x01C04D60;
-            int[] ptrs = { 0x38, 0x80, 0x180, 0x18, 0x40, 0x230, 0xDA };
-            byte[] buffer = new byte[24];
-            buffer = read_memory(offset, ptrs, 24);
-            return Encoding.ASCII.GetString(buffer);
+            var offsets = new Offsets();
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load("d://users//douglas klos//git//ffxiv-trainer//ffxiv_trainer//offsets.xml");
+
+            offsets.target_name = new List<string>(doc.SelectSingleNode("Offsets/target_name").InnerXml.Split(','));
+            offsets.current_hp = new List<string>(doc.SelectSingleNode("Offsets/current_hp").InnerXml.Split(','));
+            offsets.max_hp = new List<string>(doc.SelectSingleNode("Offsets/max_hp").InnerXml.Split(','));
+            offsets.current_mana = new List<string> (doc.SelectSingleNode("Offsets/current_mana").InnerXml.Split(','));
+            offsets.max_mana = new List<string> (doc.SelectSingleNode("Offsets/max_mana").InnerXml.Split(','));
+            offsets.lowest_marketboard_price = new List<string>(doc.SelectSingleNode("Offsets/lowest_marketboard_price").InnerXml.Split(','));
+            offsets.lowest_marketboard_price_quality = new List<string>(doc.SelectSingleNode("Offsets/lowest_marketboard_price_quality").InnerXml.Split(','));
+
+            return offsets;
+
         }
 
-        public int get_current_mana()
+        public string get_target_name() => Encoding.ASCII.GetString(read_memory(this.offsets.target_name, 24));
+        public int get_max_mana() => BitConverter.ToInt32(read_memory(this.offsets.max_mana, 4), 0);
+        public int get_current_mana() => BitConverter.ToInt32(read_memory(this.offsets.current_mana, 4), 0);
+        public int get_max_hp() => BitConverter.ToInt32(read_memory(this.offsets.max_hp, 4), 0);
+        public int get_current_hp() => BitConverter.ToInt32(read_memory(this.offsets.current_hp, 4), 0);
+        public int get_lowest_marketboard_price() => BitConverter.ToInt32(read_memory(this.offsets.lowest_marketboard_price, 4), 0);
+        public int get_lowest_marketboard_price_quality(List<string> quality_offsets) => BitConverter.ToInt32(read_memory(quality_offsets, 4), 0);
+        public void send_key_down(short key) => PostMessage(process.MainWindowHandle, 0x100, (IntPtr)key, IntPtr.Zero);
+        public void send_key_up(short key) => PostMessage(process.MainWindowHandle, 0x101, (IntPtr)key, IntPtr.Zero);
+        public int get_next_price()
         {
-            int offset = 0x01C04D60;
-            int[] ptrs = { 0x38, 0x18, 0x20, 0x20, 0x3C };
-            byte[] buffer = new byte[4];
-            buffer = read_memory(offset, ptrs, 4);
-            return BitConverter.ToInt32(buffer, 0);
+            var next_price = new List<String>(this.offsets.lowest_marketboard_price);
+            //List<string> next_price = this.offsets.lowest_marketboard_price;
+            //Console.WriteLine(this.offsets.lowest_marketboard_price[this.offsets.lowest_marketboard_price.Count -+1].ToString());
+            next_price[next_price.Count - 1] = ((Convert.ToInt32(this.offsets.lowest_marketboard_price[this.offsets.lowest_marketboard_price.Count - 1], 16) + 0x18)).ToString("X").ToString();
+            //Console.WriteLine(this.offsets.lowest_marketboard_price[this.offsets.lowest_marketboard_price.Count - 1].ToString());
+            //Console.WriteLine((Convert.ToInt32(this.offsets.lowest_marketboard_price[this.offsets.lowest_marketboard_price.Count - 1], 16) + 0x18).ToString("X"));
+            Console.WriteLine(this.offsets.lowest_marketboard_price[this.offsets.lowest_marketboard_price.Count - 1].ToString());
+            Console.WriteLine(next_price[next_price.Count - 1].ToString());
+            return BitConverter.ToInt32(read_memory(next_price, 4), 0);
+            //return get_lowest_marketboard_price();
         }
-
-        public int get_max_mana()
+        public int get_quality()
         {
-            int offset = 0x01C04D60;
-            int[] ptrs = { 0x108, 0x180, 0x38, 0x18, 0x20, 0x20, 0x40 };
-            byte[] buffer = new byte[4];
-            buffer = read_memory(offset, ptrs, 4);
-            return BitConverter.ToInt32(buffer, 0);
-        }
+            var quality_offsets = new List<String>(this.offsets.lowest_marketboard_price);
+            quality_offsets[quality_offsets.Count - 1] = ((Convert.ToInt32(this.offsets.lowest_marketboard_price[this.offsets.lowest_marketboard_price.Count - 1], 16) + 0x08)).ToString("X").ToString();
 
-        public int get_max_hp()
+            return get_lowest_marketboard_price_quality(quality_offsets);
+        }
+        public void send_key_down_up(short key)
         {
-            int offset = 0x01C047A0;
-            int[] ptrs = { 0x260, 0x2D8, 0x378, 0xDEC };
-            byte[] buffer = new byte[4];
-            buffer = read_memory(offset, ptrs, 4);
-            return BitConverter.ToInt32(buffer, 0);
+            send_key_down(key);
+            send_key_up(key);
         }
 
-        public int get_current_hp()
-        {
-            int offset = 0x01C047A0;
-            int[] ptrs = { 0x140, 0x378, 0xB0, 0x10, 0xD40 };
-            byte[] buffer = new byte[4];
-            buffer = read_memory(offset, ptrs, 4);
-            return BitConverter.ToInt32(buffer, 0);
-        }
-        
-        public int get_lowest_marketboard_price()
-        {
-            int offset = 0x01C04D60;
-            int[] ptrs = { 0x108, 0x180, 0x38, 0x10, 0x110, 0x20, 0x7D8 };
-            byte[] buffer = new byte[4];
-            buffer = read_memory(offset, ptrs, 4);
-            return BitConverter.ToInt32(buffer, 0);
-        }
-
-        public void send_keys(short[] keys)
-        {
-            const uint WM_KEYDOWN = 0x100;
-            const uint WM_KEYUP = 0x0101;
-
-            IntPtr edit = process.MainWindowHandle;
-
-            PostMessage(edit, WM_KEYDOWN, (IntPtr)(keys[1]), IntPtr.Zero);
-            PostMessage(edit, WM_KEYDOWN, (IntPtr)(keys[0]), IntPtr.Zero);
-            PostMessage(edit, WM_KEYUP, (IntPtr)(keys[0]), IntPtr.Zero);
-            PostMessage(edit, WM_KEYUP, (IntPtr)(keys[1]), IntPtr.Zero);
-        }
-
-        public void send_key(short key)
-        {
-            const uint WM_KEYDOWN = 0x100;
-            const uint WM_KEYUP = 0x0101;
-
-            IntPtr edit = process.MainWindowHandle;
-
-            PostMessage(edit, WM_KEYDOWN, (IntPtr)(key), IntPtr.Zero);
-        }
-
-        public byte[] read_memory(int offset, int[] ptrs, int bytes)
+        public byte[] read_memory(List<string> offsets, int bytes)
         {
             int bytesRead = 0;
             byte[] buffer = new byte[8];
 
-            ReadAddress = IntPtr.Add(BaseAddress, offset);
+            ReadAddress = IntPtr.Add(BaseAddress, Convert.ToInt32(offsets[0], 16));
+            
             ReadProcessMemory((int)processHandle, ReadAddress.ToInt64(), buffer, buffer.Length, ref bytesRead);
 
-            foreach (var ptr in ptrs)
+            int loop_counter = 0;
+
+            foreach (var ptr in offsets)
             {
-                new_addr = BitConverter.ToInt64(buffer, 0);
-                new_addr += ptr;
-                ReadProcessMemory((int)processHandle, new_addr, buffer, buffer.Length, ref bytesRead);
+                if (loop_counter > 0) // Skip the first element, we already added it in above.
+                {
+                    new_addr = BitConverter.ToInt64(buffer, 0);
+                    new_addr += Convert.ToInt32(ptr, 16);
+                    ReadProcessMemory((int)processHandle, new_addr, buffer, buffer.Length, ref bytesRead);
+                }
+                loop_counter++;
             }
 
             bytesRead = 0;
@@ -185,6 +179,18 @@ namespace FFXIV_Trainer
             ReadProcessMemory((int)processHandle, new_addr, buffer, buffer.Length, ref bytesRead);
 
             return buffer;
+        }
+
+        public class Offsets
+        {
+            public List<string> target_name { get; set; }
+            public List<string> current_hp { get; set; }
+            public List<string> max_hp { get; set; }
+            public List<string> current_mana { get; set; }
+            public List<string> max_mana { get; set; }
+            public List<string> lowest_marketboard_price { get; set; }
+            public List<string> lowest_marketboard_price_quality { get; set; }
+
         }
     }
 }

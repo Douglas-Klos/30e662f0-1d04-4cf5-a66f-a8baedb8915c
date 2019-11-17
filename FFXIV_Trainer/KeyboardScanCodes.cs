@@ -79,6 +79,8 @@ namespace FFXIV_Trainer
                 {"INSERT", 0x2D},       // INS key
                 {"ELETE", 0x2E},        // DEL key
                 {"HELP", 0x2F},         // HELP key
+                {"[", 0x5B},            // [ key
+                {"]", 0x5C},            // ] key
                 {"NUMPAD0", 0x60},      // Numeric keypad 0 key
                 {"NUMPAD1", 0x61},      // Numeric keypad 1 key
                 {"NUMPAD2", 0x62},      // Numeric keypad 2 key
