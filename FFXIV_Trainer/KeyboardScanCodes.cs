@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-
-
-namespace FFXIV_Trainer
+﻿namespace FFXIV_Trainer
 {
+    using System.Collections.Generic;
+
     class KeyboardScanCodes
     {
         Dictionary<string, short> DXKeyCodes;
@@ -121,6 +120,7 @@ namespace FFXIV_Trainer
                 {"NULL", 0x00}          // Not A Key
             };
         }
+
         public short get_key_code(string key)
         {
             return DXKeyCodes[key];

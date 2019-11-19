@@ -29,476 +29,464 @@
         private void InitializeComponent()
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.first_retainer_maximum_laenl = new System.Windows.Forms.Label();
-            this.first_retainer_maximum_tb = new System.Windows.Forms.TextBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.test_button = new System.Windows.Forms.Button();
-            this.kill_thread_1 = new System.Windows.Forms.Button();
-            this.first_retainer_thread_1 = new System.Windows.Forms.Button();
-            this.first_retainer_undercut_label = new System.Windows.Forms.Label();
-            this.first_retainer_undercut = new System.Windows.Forms.TextBox();
-            this.first_retainer_default_label = new System.Windows.Forms.Label();
-            this.first_retainer_default_tb = new System.Windows.Forms.TextBox();
-            this.first_retainer_minimum_tb = new System.Windows.Forms.TextBox();
-            this.first_retainer_minimum_label = new System.Windows.Forms.Label();
-            this.first_retainer_number_of_items_label = new System.Windows.Forms.Label();
-            this.first_retainer_number_of_items_tb = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.second_retainer_maximum_label = new System.Windows.Forms.Label();
-            this.second_retainer_maximum_tb = new System.Windows.Forms.TextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.kill_thread_2 = new System.Windows.Forms.Button();
-            this.second_retainer_thread_1 = new System.Windows.Forms.Button();
-            this.second_retainer_undercut_label = new System.Windows.Forms.Label();
-            this.second_retainer_undercut = new System.Windows.Forms.TextBox();
-            this.second_retainer_default_label = new System.Windows.Forms.Label();
-            this.second_retainer_minimum_label = new System.Windows.Forms.Label();
-            this.second_retainer_number_of_items_label = new System.Windows.Forms.Label();
-            this.second_retainer_default_tb = new System.Windows.Forms.TextBox();
-            this.second_retainer_minimum_tb = new System.Windows.Forms.TextBox();
-            this.second_retainer_number_of_items_tb = new System.Windows.Forms.TextBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.execute_crafting_macro_button = new System.Windows.Forms.Button();
-            this.macros_dropdown = new System.Windows.Forms.ComboBox();
-            this.macro_rotation_rtb = new System.Windows.Forms.RichTextBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.refresh_character_sheet = new System.Windows.Forms.Button();
-            this.character_rtb = new System.Windows.Forms.RichTextBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.general_info_textbox = new System.Windows.Forms.RichTextBox();
+            this.marketPage = new System.Windows.Forms.TabPage();
+            this.marketFirstRetainerGroupBox = new System.Windows.Forms.GroupBox();
+            this.marketFirstMaximumLabel = new System.Windows.Forms.Label();
+            this.marketFirstMaximum = new System.Windows.Forms.TextBox();
+            this.marketFirstStartPointGroupBox = new System.Windows.Forms.GroupBox();
+            this.marketFirstStop = new System.Windows.Forms.Button();
+            this.marketFirstPost = new System.Windows.Forms.Button();
+            this.marketFirstUndercutLabel = new System.Windows.Forms.Label();
+            this.marketFirstUndercut = new System.Windows.Forms.TextBox();
+            this.marketFirstResetLabel = new System.Windows.Forms.Label();
+            this.marketFirstReset = new System.Windows.Forms.TextBox();
+            this.marketFirstMinimum = new System.Windows.Forms.TextBox();
+            this.marketFirstMinimumLabel = new System.Windows.Forms.Label();
+            this.marketFirstNumberOfItemsLabel = new System.Windows.Forms.Label();
+            this.marketFirstNumberOfItems = new System.Windows.Forms.TextBox();
+            this.marketSecondRetainerGroupBox = new System.Windows.Forms.GroupBox();
+            this.marketSecondMaximumLabel = new System.Windows.Forms.Label();
+            this.marketSecondMaximum = new System.Windows.Forms.TextBox();
+            this.marketSecondStartPointGroupBox = new System.Windows.Forms.GroupBox();
+            this.marketSecondStop = new System.Windows.Forms.Button();
+            this.marketSecondPost = new System.Windows.Forms.Button();
+            this.marketSecondUndercutLabel = new System.Windows.Forms.Label();
+            this.marketSecondUndercut = new System.Windows.Forms.TextBox();
+            this.marketSecondResetLabel = new System.Windows.Forms.Label();
+            this.marketSecondMinimumLabel = new System.Windows.Forms.Label();
+            this.marketSecondNumberOfItemsLabel = new System.Windows.Forms.Label();
+            this.marketSecondReset = new System.Windows.Forms.TextBox();
+            this.marketSecondMinimum = new System.Windows.Forms.TextBox();
+            this.marketSecondNumberOfItems = new System.Windows.Forms.TextBox();
+            this.craftingPage = new System.Windows.Forms.TabPage();
+            this.craftingExecute = new System.Windows.Forms.Button();
+            this.craftingMacrosDropdown = new System.Windows.Forms.ComboBox();
+            this.craftingMacroRotation = new System.Windows.Forms.RichTextBox();
+            this.characterPage = new System.Windows.Forms.TabPage();
+            this.characterRefresh = new System.Windows.Forms.Button();
+            this.characterInfo = new System.Windows.Forms.RichTextBox();
+            this.aboutPage = new System.Windows.Forms.TabPage();
+            this.generalInfoTextbox = new System.Windows.Forms.RichTextBox();
             this.tabControl1.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.marketPage.SuspendLayout();
+            this.marketFirstRetainerGroupBox.SuspendLayout();
+            this.marketFirstStartPointGroupBox.SuspendLayout();
+            this.marketSecondRetainerGroupBox.SuspendLayout();
+            this.marketSecondStartPointGroupBox.SuspendLayout();
+            this.craftingPage.SuspendLayout();
+            this.characterPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.marketPage);
+            this.tabControl1.Controls.Add(this.craftingPage);
+            this.tabControl1.Controls.Add(this.characterPage);
+            this.tabControl1.Controls.Add(this.aboutPage);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(560, 389);
             this.tabControl1.TabIndex = 0;
             // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.groupBox2);
-            this.tabPage4.Controls.Add(this.groupBox1);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(552, 363);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Market Sales";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.first_retainer_maximum_laenl);
-            this.groupBox2.Controls.Add(this.first_retainer_maximum_tb);
-            this.groupBox2.Controls.Add(this.groupBox3);
-            this.groupBox2.Controls.Add(this.first_retainer_undercut_label);
-            this.groupBox2.Controls.Add(this.first_retainer_undercut);
-            this.groupBox2.Controls.Add(this.first_retainer_default_label);
-            this.groupBox2.Controls.Add(this.first_retainer_default_tb);
-            this.groupBox2.Controls.Add(this.first_retainer_minimum_tb);
-            this.groupBox2.Controls.Add(this.first_retainer_minimum_label);
-            this.groupBox2.Controls.Add(this.first_retainer_number_of_items_label);
-            this.groupBox2.Controls.Add(this.first_retainer_number_of_items_tb);
-            this.groupBox2.Location = new System.Drawing.Point(5, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(255, 351);
-            this.groupBox2.TabIndex = 24;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "First Retainer";
-            // 
-            // first_retainer_maximum_laenl
-            // 
-            this.first_retainer_maximum_laenl.AutoSize = true;
-            this.first_retainer_maximum_laenl.Location = new System.Drawing.Point(92, 87);
-            this.first_retainer_maximum_laenl.Name = "first_retainer_maximum_laenl";
-            this.first_retainer_maximum_laenl.Size = new System.Drawing.Size(51, 13);
-            this.first_retainer_maximum_laenl.TabIndex = 25;
-            this.first_retainer_maximum_laenl.Text = "Maximum";
-            // 
-            // first_retainer_maximum_tb
-            // 
-            this.first_retainer_maximum_tb.Location = new System.Drawing.Point(149, 84);
-            this.first_retainer_maximum_tb.Name = "first_retainer_maximum_tb";
-            this.first_retainer_maximum_tb.Size = new System.Drawing.Size(100, 20);
-            this.first_retainer_maximum_tb.TabIndex = 24;
-            this.first_retainer_maximum_tb.Text = "1000000";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.test_button);
-            this.groupBox3.Controls.Add(this.kill_thread_1);
-            this.groupBox3.Controls.Add(this.first_retainer_thread_1);
-            this.groupBox3.Location = new System.Drawing.Point(6, 214);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(243, 129);
-            this.groupBox3.TabIndex = 23;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "First Retainer Starting Point";
-            // 
-            // test_button
-            // 
-            this.test_button.Location = new System.Drawing.Point(11, 38);
-            this.test_button.Name = "test_button";
-            this.test_button.Size = new System.Drawing.Size(75, 23);
-            this.test_button.TabIndex = 5;
-            this.test_button.Text = "test";
-            this.test_button.UseVisualStyleBackColor = true;
-            this.test_button.Click += new System.EventHandler(this.test_button_Click);
-            // 
-            // kill_thread_1
-            // 
-            this.kill_thread_1.Location = new System.Drawing.Point(143, 100);
-            this.kill_thread_1.Name = "kill_thread_1";
-            this.kill_thread_1.Size = new System.Drawing.Size(94, 23);
-            this.kill_thread_1.TabIndex = 4;
-            this.kill_thread_1.Text = "Stop";
-            this.kill_thread_1.UseVisualStyleBackColor = true;
-            this.kill_thread_1.Click += new System.EventHandler(this.kill_thread_1_Click);
-            // 
-            // first_retainer_thread_1
-            // 
-            this.first_retainer_thread_1.Location = new System.Drawing.Point(6, 98);
-            this.first_retainer_thread_1.Name = "first_retainer_thread_1";
-            this.first_retainer_thread_1.Size = new System.Drawing.Size(80, 23);
-            this.first_retainer_thread_1.TabIndex = 3;
-            this.first_retainer_thread_1.Text = "Post";
-            this.first_retainer_thread_1.UseVisualStyleBackColor = true;
-            this.first_retainer_thread_1.Click += new System.EventHandler(this.first_retainer_thread_1_Click);
-            // 
-            // first_retainer_undercut_label
-            // 
-            this.first_retainer_undercut_label.AutoSize = true;
-            this.first_retainer_undercut_label.Location = new System.Drawing.Point(54, 148);
-            this.first_retainer_undercut_label.Name = "first_retainer_undercut_label";
-            this.first_retainer_undercut_label.Size = new System.Drawing.Size(89, 13);
-            this.first_retainer_undercut_label.TabIndex = 21;
-            this.first_retainer_undercut_label.Text = "Undercut amount";
-            // 
-            // first_retainer_undercut
-            // 
-            this.first_retainer_undercut.Location = new System.Drawing.Point(149, 144);
-            this.first_retainer_undercut.Name = "first_retainer_undercut";
-            this.first_retainer_undercut.Size = new System.Drawing.Size(100, 20);
-            this.first_retainer_undercut.TabIndex = 19;
-            this.first_retainer_undercut.Text = "50";
-            // 
-            // first_retainer_default_label
-            // 
-            this.first_retainer_default_label.AutoSize = true;
-            this.first_retainer_default_label.Location = new System.Drawing.Point(102, 116);
-            this.first_retainer_default_label.Name = "first_retainer_default_label";
-            this.first_retainer_default_label.Size = new System.Drawing.Size(41, 13);
-            this.first_retainer_default_label.TabIndex = 12;
-            this.first_retainer_default_label.Text = "Default";
-            this.first_retainer_default_label.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // first_retainer_default_tb
-            // 
-            this.first_retainer_default_tb.Location = new System.Drawing.Point(149, 114);
-            this.first_retainer_default_tb.Name = "first_retainer_default_tb";
-            this.first_retainer_default_tb.Size = new System.Drawing.Size(100, 20);
-            this.first_retainer_default_tb.TabIndex = 9;
-            this.first_retainer_default_tb.Text = "500000";
-            // 
-            // first_retainer_minimum_tb
-            // 
-            this.first_retainer_minimum_tb.Location = new System.Drawing.Point(149, 54);
-            this.first_retainer_minimum_tb.Name = "first_retainer_minimum_tb";
-            this.first_retainer_minimum_tb.Size = new System.Drawing.Size(100, 20);
-            this.first_retainer_minimum_tb.TabIndex = 8;
-            this.first_retainer_minimum_tb.Text = "100000";
-            // 
-            // first_retainer_minimum_label
-            // 
-            this.first_retainer_minimum_label.AutoSize = true;
-            this.first_retainer_minimum_label.Location = new System.Drawing.Point(95, 52);
-            this.first_retainer_minimum_label.Name = "first_retainer_minimum_label";
-            this.first_retainer_minimum_label.Size = new System.Drawing.Size(48, 13);
-            this.first_retainer_minimum_label.TabIndex = 7;
-            this.first_retainer_minimum_label.Text = "Minimum";
-            this.first_retainer_minimum_label.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // first_retainer_number_of_items_label
-            // 
-            this.first_retainer_number_of_items_label.AutoSize = true;
-            this.first_retainer_number_of_items_label.Location = new System.Drawing.Point(59, 22);
-            this.first_retainer_number_of_items_label.Name = "first_retainer_number_of_items_label";
-            this.first_retainer_number_of_items_label.Size = new System.Drawing.Size(84, 13);
-            this.first_retainer_number_of_items_label.TabIndex = 6;
-            this.first_retainer_number_of_items_label.Text = "Number of Items";
-            this.first_retainer_number_of_items_label.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // first_retainer_number_of_items_tb
-            // 
-            this.first_retainer_number_of_items_tb.Location = new System.Drawing.Point(149, 24);
-            this.first_retainer_number_of_items_tb.Name = "first_retainer_number_of_items_tb";
-            this.first_retainer_number_of_items_tb.Size = new System.Drawing.Size(100, 20);
-            this.first_retainer_number_of_items_tb.TabIndex = 3;
-            this.first_retainer_number_of_items_tb.Text = "1";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.second_retainer_maximum_label);
-            this.groupBox1.Controls.Add(this.second_retainer_maximum_tb);
-            this.groupBox1.Controls.Add(this.groupBox4);
-            this.groupBox1.Controls.Add(this.second_retainer_undercut_label);
-            this.groupBox1.Controls.Add(this.second_retainer_undercut);
-            this.groupBox1.Controls.Add(this.second_retainer_default_label);
-            this.groupBox1.Controls.Add(this.second_retainer_minimum_label);
-            this.groupBox1.Controls.Add(this.second_retainer_number_of_items_label);
-            this.groupBox1.Controls.Add(this.second_retainer_default_tb);
-            this.groupBox1.Controls.Add(this.second_retainer_minimum_tb);
-            this.groupBox1.Controls.Add(this.second_retainer_number_of_items_tb);
-            this.groupBox1.Location = new System.Drawing.Point(272, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(274, 351);
-            this.groupBox1.TabIndex = 23;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Second Retainer";
-            // 
-            // second_retainer_maximum_label
-            // 
-            this.second_retainer_maximum_label.AutoSize = true;
-            this.second_retainer_maximum_label.Location = new System.Drawing.Point(112, 87);
-            this.second_retainer_maximum_label.Name = "second_retainer_maximum_label";
-            this.second_retainer_maximum_label.Size = new System.Drawing.Size(51, 13);
-            this.second_retainer_maximum_label.TabIndex = 25;
-            this.second_retainer_maximum_label.Text = "Maximum";
-            // 
-            // second_retainer_maximum_tb
-            // 
-            this.second_retainer_maximum_tb.Location = new System.Drawing.Point(6, 84);
-            this.second_retainer_maximum_tb.Name = "second_retainer_maximum_tb";
-            this.second_retainer_maximum_tb.Size = new System.Drawing.Size(100, 20);
-            this.second_retainer_maximum_tb.TabIndex = 24;
-            this.second_retainer_maximum_tb.Text = "1000000";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.kill_thread_2);
-            this.groupBox4.Controls.Add(this.second_retainer_thread_1);
-            this.groupBox4.Location = new System.Drawing.Point(6, 219);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(262, 124);
-            this.groupBox4.TabIndex = 23;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Second Retainer Starting Point";
-            // 
-            // kill_thread_2
-            // 
-            this.kill_thread_2.Location = new System.Drawing.Point(162, 93);
-            this.kill_thread_2.Name = "kill_thread_2";
-            this.kill_thread_2.Size = new System.Drawing.Size(94, 23);
-            this.kill_thread_2.TabIndex = 5;
-            this.kill_thread_2.Text = "Stop";
-            this.kill_thread_2.UseVisualStyleBackColor = true;
-            this.kill_thread_2.Click += new System.EventHandler(this.kill_thread_2_Click);
-            // 
-            // second_retainer_thread_1
-            // 
-            this.second_retainer_thread_1.Location = new System.Drawing.Point(6, 93);
-            this.second_retainer_thread_1.Name = "second_retainer_thread_1";
-            this.second_retainer_thread_1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.second_retainer_thread_1.Size = new System.Drawing.Size(80, 25);
-            this.second_retainer_thread_1.TabIndex = 2;
-            this.second_retainer_thread_1.Text = "Post";
-            this.second_retainer_thread_1.UseVisualStyleBackColor = true;
-            this.second_retainer_thread_1.Click += new System.EventHandler(this.second_retainer_thread_1_Click);
-            // 
-            // second_retainer_undercut_label
-            // 
-            this.second_retainer_undercut_label.AutoSize = true;
-            this.second_retainer_undercut_label.Location = new System.Drawing.Point(112, 153);
-            this.second_retainer_undercut_label.Name = "second_retainer_undercut_label";
-            this.second_retainer_undercut_label.Size = new System.Drawing.Size(89, 13);
-            this.second_retainer_undercut_label.TabIndex = 22;
-            this.second_retainer_undercut_label.Text = "Undercut amount";
-            // 
-            // second_retainer_undercut
-            // 
-            this.second_retainer_undercut.Location = new System.Drawing.Point(6, 144);
-            this.second_retainer_undercut.Name = "second_retainer_undercut";
-            this.second_retainer_undercut.Size = new System.Drawing.Size(100, 20);
-            this.second_retainer_undercut.TabIndex = 20;
-            this.second_retainer_undercut.Text = "50";
-            // 
-            // second_retainer_default_label
-            // 
-            this.second_retainer_default_label.AutoSize = true;
-            this.second_retainer_default_label.Location = new System.Drawing.Point(112, 121);
-            this.second_retainer_default_label.Name = "second_retainer_default_label";
-            this.second_retainer_default_label.Size = new System.Drawing.Size(35, 13);
-            this.second_retainer_default_label.TabIndex = 18;
-            this.second_retainer_default_label.Text = "Reset";
-            this.second_retainer_default_label.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // second_retainer_minimum_label
-            // 
-            this.second_retainer_minimum_label.AutoSize = true;
-            this.second_retainer_minimum_label.Location = new System.Drawing.Point(112, 57);
-            this.second_retainer_minimum_label.Name = "second_retainer_minimum_label";
-            this.second_retainer_minimum_label.Size = new System.Drawing.Size(48, 13);
-            this.second_retainer_minimum_label.TabIndex = 17;
-            this.second_retainer_minimum_label.Text = "Minimum";
-            this.second_retainer_minimum_label.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // second_retainer_number_of_items_label
-            // 
-            this.second_retainer_number_of_items_label.AutoSize = true;
-            this.second_retainer_number_of_items_label.Location = new System.Drawing.Point(112, 27);
-            this.second_retainer_number_of_items_label.Name = "second_retainer_number_of_items_label";
-            this.second_retainer_number_of_items_label.Size = new System.Drawing.Size(84, 13);
-            this.second_retainer_number_of_items_label.TabIndex = 16;
-            this.second_retainer_number_of_items_label.Text = "Number of Items";
-            this.second_retainer_number_of_items_label.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // second_retainer_default_tb
-            // 
-            this.second_retainer_default_tb.Location = new System.Drawing.Point(6, 114);
-            this.second_retainer_default_tb.Name = "second_retainer_default_tb";
-            this.second_retainer_default_tb.Size = new System.Drawing.Size(100, 20);
-            this.second_retainer_default_tb.TabIndex = 11;
-            this.second_retainer_default_tb.Text = "500000";
-            // 
-            // second_retainer_minimum_tb
-            // 
-            this.second_retainer_minimum_tb.Location = new System.Drawing.Point(6, 54);
-            this.second_retainer_minimum_tb.Name = "second_retainer_minimum_tb";
-            this.second_retainer_minimum_tb.Size = new System.Drawing.Size(100, 20);
-            this.second_retainer_minimum_tb.TabIndex = 10;
-            this.second_retainer_minimum_tb.Text = "100000";
-            // 
-            // second_retainer_number_of_items_tb
-            // 
-            this.second_retainer_number_of_items_tb.Location = new System.Drawing.Point(6, 24);
-            this.second_retainer_number_of_items_tb.Name = "second_retainer_number_of_items_tb";
-            this.second_retainer_number_of_items_tb.Size = new System.Drawing.Size(100, 20);
-            this.second_retainer_number_of_items_tb.TabIndex = 4;
-            this.second_retainer_number_of_items_tb.Text = "1";
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.execute_crafting_macro_button);
-            this.tabPage1.Controls.Add(this.macros_dropdown);
-            this.tabPage1.Controls.Add(this.macro_rotation_rtb);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(552, 363);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Crafting";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // execute_crafting_macro_button
-            // 
-            this.execute_crafting_macro_button.Location = new System.Drawing.Point(471, 33);
-            this.execute_crafting_macro_button.Name = "execute_crafting_macro_button";
-            this.execute_crafting_macro_button.Size = new System.Drawing.Size(75, 23);
-            this.execute_crafting_macro_button.TabIndex = 1;
-            this.execute_crafting_macro_button.Text = "Execute";
-            this.execute_crafting_macro_button.UseVisualStyleBackColor = true;
-            this.execute_crafting_macro_button.Click += new System.EventHandler(this.execute_crafting_Click);
-            // 
-            // macros_dropdown
-            // 
-            this.macros_dropdown.FormattingEnabled = true;
-            this.macros_dropdown.Location = new System.Drawing.Point(282, 6);
-            this.macros_dropdown.Name = "macros_dropdown";
-            this.macros_dropdown.Size = new System.Drawing.Size(264, 21);
-            this.macros_dropdown.TabIndex = 1;
-            this.macros_dropdown.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // macro_rotation_rtb
-            // 
-            this.macro_rotation_rtb.Location = new System.Drawing.Point(6, 6);
-            this.macro_rotation_rtb.Name = "macro_rotation_rtb";
-            this.macro_rotation_rtb.Size = new System.Drawing.Size(270, 351);
-            this.macro_rotation_rtb.TabIndex = 0;
-            this.macro_rotation_rtb.Text = "";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.refresh_character_sheet);
-            this.tabPage2.Controls.Add(this.character_rtb);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(552, 363);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Character";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // refresh_character_sheet
-            // 
-            this.refresh_character_sheet.Location = new System.Drawing.Point(6, 6);
-            this.refresh_character_sheet.Name = "refresh_character_sheet";
-            this.refresh_character_sheet.Size = new System.Drawing.Size(75, 23);
-            this.refresh_character_sheet.TabIndex = 1;
-            this.refresh_character_sheet.Text = "Refresh";
-            this.refresh_character_sheet.UseVisualStyleBackColor = true;
-            this.refresh_character_sheet.Click += new System.EventHandler(this.refresh_character_Click);
-            // 
-            // character_rtb
-            // 
-            this.character_rtb.Location = new System.Drawing.Point(6, 35);
-            this.character_rtb.Name = "character_rtb";
-            this.character_rtb.Size = new System.Drawing.Size(540, 322);
-            this.character_rtb.TabIndex = 0;
-            this.character_rtb.Text = "";
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(552, 363);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "About";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // general_info_textbox
-            // 
-            this.general_info_textbox.Location = new System.Drawing.Point(12, 403);
-            this.general_info_textbox.Name = "general_info_textbox";
-            this.general_info_textbox.Size = new System.Drawing.Size(560, 347);
-            this.general_info_textbox.TabIndex = 1;
-            this.general_info_textbox.Text = "";
+            // marketPage
+            // 
+            this.marketPage.Controls.Add(this.marketFirstRetainerGroupBox);
+            this.marketPage.Controls.Add(this.marketSecondRetainerGroupBox);
+            this.marketPage.Location = new System.Drawing.Point(4, 22);
+            this.marketPage.Name = "marketPage";
+            this.marketPage.Padding = new System.Windows.Forms.Padding(3);
+            this.marketPage.Size = new System.Drawing.Size(552, 363);
+            this.marketPage.TabIndex = 3;
+            this.marketPage.Text = "Market Sales";
+            this.marketPage.UseVisualStyleBackColor = true;
+            // 
+            // marketFirstRetainerGroupBox
+            // 
+            this.marketFirstRetainerGroupBox.Controls.Add(this.marketFirstMaximumLabel);
+            this.marketFirstRetainerGroupBox.Controls.Add(this.marketFirstMaximum);
+            this.marketFirstRetainerGroupBox.Controls.Add(this.marketFirstStartPointGroupBox);
+            this.marketFirstRetainerGroupBox.Controls.Add(this.marketFirstUndercutLabel);
+            this.marketFirstRetainerGroupBox.Controls.Add(this.marketFirstUndercut);
+            this.marketFirstRetainerGroupBox.Controls.Add(this.marketFirstResetLabel);
+            this.marketFirstRetainerGroupBox.Controls.Add(this.marketFirstReset);
+            this.marketFirstRetainerGroupBox.Controls.Add(this.marketFirstMinimum);
+            this.marketFirstRetainerGroupBox.Controls.Add(this.marketFirstMinimumLabel);
+            this.marketFirstRetainerGroupBox.Controls.Add(this.marketFirstNumberOfItemsLabel);
+            this.marketFirstRetainerGroupBox.Controls.Add(this.marketFirstNumberOfItems);
+            this.marketFirstRetainerGroupBox.Location = new System.Drawing.Point(5, 6);
+            this.marketFirstRetainerGroupBox.Name = "marketFirstRetainerGroupBox";
+            this.marketFirstRetainerGroupBox.Size = new System.Drawing.Size(255, 351);
+            this.marketFirstRetainerGroupBox.TabIndex = 24;
+            this.marketFirstRetainerGroupBox.TabStop = false;
+            this.marketFirstRetainerGroupBox.Text = "First Retainer";
+            // 
+            // marketFirstMaximumLabel
+            // 
+            this.marketFirstMaximumLabel.AutoSize = true;
+            this.marketFirstMaximumLabel.Location = new System.Drawing.Point(92, 87);
+            this.marketFirstMaximumLabel.Name = "marketFirstMaximumLabel";
+            this.marketFirstMaximumLabel.Size = new System.Drawing.Size(51, 13);
+            this.marketFirstMaximumLabel.TabIndex = 25;
+            this.marketFirstMaximumLabel.Text = "Maximum";
+            // 
+            // marketFirstMaximum
+            // 
+            this.marketFirstMaximum.Location = new System.Drawing.Point(149, 84);
+            this.marketFirstMaximum.Name = "marketFirstMaximum";
+            this.marketFirstMaximum.Size = new System.Drawing.Size(100, 20);
+            this.marketFirstMaximum.TabIndex = 24;
+            this.marketFirstMaximum.Text = "1000000";
+            // 
+            // marketFirstStartPointGroupBox
+            // 
+            this.marketFirstStartPointGroupBox.Controls.Add(this.marketFirstStop);
+            this.marketFirstStartPointGroupBox.Controls.Add(this.marketFirstPost);
+            this.marketFirstStartPointGroupBox.Location = new System.Drawing.Point(6, 214);
+            this.marketFirstStartPointGroupBox.Name = "marketFirstStartPointGroupBox";
+            this.marketFirstStartPointGroupBox.Size = new System.Drawing.Size(243, 129);
+            this.marketFirstStartPointGroupBox.TabIndex = 23;
+            this.marketFirstStartPointGroupBox.TabStop = false;
+            this.marketFirstStartPointGroupBox.Text = "First Retainer Starting Point";
+            // 
+            // marketFirstStop
+            // 
+            this.marketFirstStop.Location = new System.Drawing.Point(143, 100);
+            this.marketFirstStop.Name = "marketFirstStop";
+            this.marketFirstStop.Size = new System.Drawing.Size(94, 23);
+            this.marketFirstStop.TabIndex = 4;
+            this.marketFirstStop.Text = "Stop";
+            this.marketFirstStop.UseVisualStyleBackColor = true;
+            this.marketFirstStop.Click += new System.EventHandler(this.MarketStopFirstRetainerClick);
+            // 
+            // marketFirstPost
+            // 
+            this.marketFirstPost.Location = new System.Drawing.Point(6, 98);
+            this.marketFirstPost.Name = "marketFirstPost";
+            this.marketFirstPost.Size = new System.Drawing.Size(80, 23);
+            this.marketFirstPost.TabIndex = 3;
+            this.marketFirstPost.Text = "Post";
+            this.marketFirstPost.UseVisualStyleBackColor = true;
+            this.marketFirstPost.Click += new System.EventHandler(this.MarketPostFirstRetainerClick);
+            // 
+            // marketFirstUndercutLabel
+            // 
+            this.marketFirstUndercutLabel.AutoSize = true;
+            this.marketFirstUndercutLabel.Location = new System.Drawing.Point(54, 148);
+            this.marketFirstUndercutLabel.Name = "marketFirstUndercutLabel";
+            this.marketFirstUndercutLabel.Size = new System.Drawing.Size(89, 13);
+            this.marketFirstUndercutLabel.TabIndex = 21;
+            this.marketFirstUndercutLabel.Text = "Undercut amount";
+            // 
+            // marketFirstUndercut
+            // 
+            this.marketFirstUndercut.Location = new System.Drawing.Point(149, 144);
+            this.marketFirstUndercut.Name = "marketFirstUndercut";
+            this.marketFirstUndercut.Size = new System.Drawing.Size(100, 20);
+            this.marketFirstUndercut.TabIndex = 19;
+            this.marketFirstUndercut.Text = "50";
+            // 
+            // marketFirstResetLabel
+            // 
+            this.marketFirstResetLabel.AutoSize = true;
+            this.marketFirstResetLabel.Location = new System.Drawing.Point(102, 116);
+            this.marketFirstResetLabel.Name = "marketFirstResetLabel";
+            this.marketFirstResetLabel.Size = new System.Drawing.Size(35, 13);
+            this.marketFirstResetLabel.TabIndex = 12;
+            this.marketFirstResetLabel.Text = "Reset";
+            this.marketFirstResetLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // marketFirstReset
+            // 
+            this.marketFirstReset.Location = new System.Drawing.Point(149, 114);
+            this.marketFirstReset.Name = "marketFirstReset";
+            this.marketFirstReset.Size = new System.Drawing.Size(100, 20);
+            this.marketFirstReset.TabIndex = 9;
+            this.marketFirstReset.Text = "500000";
+            // 
+            // marketFirstMinimum
+            // 
+            this.marketFirstMinimum.Location = new System.Drawing.Point(149, 54);
+            this.marketFirstMinimum.Name = "marketFirstMinimum";
+            this.marketFirstMinimum.Size = new System.Drawing.Size(100, 20);
+            this.marketFirstMinimum.TabIndex = 8;
+            this.marketFirstMinimum.Text = "100000";
+            // 
+            // marketFirstMinimumLabel
+            // 
+            this.marketFirstMinimumLabel.AutoSize = true;
+            this.marketFirstMinimumLabel.Location = new System.Drawing.Point(95, 52);
+            this.marketFirstMinimumLabel.Name = "marketFirstMinimumLabel";
+            this.marketFirstMinimumLabel.Size = new System.Drawing.Size(48, 13);
+            this.marketFirstMinimumLabel.TabIndex = 7;
+            this.marketFirstMinimumLabel.Text = "Minimum";
+            this.marketFirstMinimumLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // marketFirstNumberOfItemsLabel
+            // 
+            this.marketFirstNumberOfItemsLabel.AutoSize = true;
+            this.marketFirstNumberOfItemsLabel.Location = new System.Drawing.Point(59, 22);
+            this.marketFirstNumberOfItemsLabel.Name = "marketFirstNumberOfItemsLabel";
+            this.marketFirstNumberOfItemsLabel.Size = new System.Drawing.Size(84, 13);
+            this.marketFirstNumberOfItemsLabel.TabIndex = 6;
+            this.marketFirstNumberOfItemsLabel.Text = "Number of Items";
+            this.marketFirstNumberOfItemsLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // marketFirstNumberOfItems
+            // 
+            this.marketFirstNumberOfItems.Location = new System.Drawing.Point(149, 24);
+            this.marketFirstNumberOfItems.Name = "marketFirstNumberOfItems";
+            this.marketFirstNumberOfItems.Size = new System.Drawing.Size(100, 20);
+            this.marketFirstNumberOfItems.TabIndex = 3;
+            this.marketFirstNumberOfItems.Text = "1";
+            // 
+            // marketSecondRetainerGroupBox
+            // 
+            this.marketSecondRetainerGroupBox.Controls.Add(this.marketSecondMaximumLabel);
+            this.marketSecondRetainerGroupBox.Controls.Add(this.marketSecondMaximum);
+            this.marketSecondRetainerGroupBox.Controls.Add(this.marketSecondStartPointGroupBox);
+            this.marketSecondRetainerGroupBox.Controls.Add(this.marketSecondUndercutLabel);
+            this.marketSecondRetainerGroupBox.Controls.Add(this.marketSecondUndercut);
+            this.marketSecondRetainerGroupBox.Controls.Add(this.marketSecondResetLabel);
+            this.marketSecondRetainerGroupBox.Controls.Add(this.marketSecondMinimumLabel);
+            this.marketSecondRetainerGroupBox.Controls.Add(this.marketSecondNumberOfItemsLabel);
+            this.marketSecondRetainerGroupBox.Controls.Add(this.marketSecondReset);
+            this.marketSecondRetainerGroupBox.Controls.Add(this.marketSecondMinimum);
+            this.marketSecondRetainerGroupBox.Controls.Add(this.marketSecondNumberOfItems);
+            this.marketSecondRetainerGroupBox.Location = new System.Drawing.Point(272, 6);
+            this.marketSecondRetainerGroupBox.Name = "marketSecondRetainerGroupBox";
+            this.marketSecondRetainerGroupBox.Size = new System.Drawing.Size(274, 351);
+            this.marketSecondRetainerGroupBox.TabIndex = 23;
+            this.marketSecondRetainerGroupBox.TabStop = false;
+            this.marketSecondRetainerGroupBox.Text = "Second Retainer";
+            // 
+            // marketSecondMaximumLabel
+            // 
+            this.marketSecondMaximumLabel.AutoSize = true;
+            this.marketSecondMaximumLabel.Location = new System.Drawing.Point(112, 87);
+            this.marketSecondMaximumLabel.Name = "marketSecondMaximumLabel";
+            this.marketSecondMaximumLabel.Size = new System.Drawing.Size(51, 13);
+            this.marketSecondMaximumLabel.TabIndex = 25;
+            this.marketSecondMaximumLabel.Text = "Maximum";
+            // 
+            // marketSecondMaximum
+            // 
+            this.marketSecondMaximum.Location = new System.Drawing.Point(6, 84);
+            this.marketSecondMaximum.Name = "marketSecondMaximum";
+            this.marketSecondMaximum.Size = new System.Drawing.Size(100, 20);
+            this.marketSecondMaximum.TabIndex = 24;
+            this.marketSecondMaximum.Text = "1000000";
+            // 
+            // marketSecondStartPointGroupBox
+            // 
+            this.marketSecondStartPointGroupBox.Controls.Add(this.marketSecondStop);
+            this.marketSecondStartPointGroupBox.Controls.Add(this.marketSecondPost);
+            this.marketSecondStartPointGroupBox.Location = new System.Drawing.Point(6, 219);
+            this.marketSecondStartPointGroupBox.Name = "marketSecondStartPointGroupBox";
+            this.marketSecondStartPointGroupBox.Size = new System.Drawing.Size(262, 124);
+            this.marketSecondStartPointGroupBox.TabIndex = 23;
+            this.marketSecondStartPointGroupBox.TabStop = false;
+            this.marketSecondStartPointGroupBox.Text = "Second Retainer Starting Point";
+            // 
+            // marketSecondStop
+            // 
+            this.marketSecondStop.Location = new System.Drawing.Point(162, 93);
+            this.marketSecondStop.Name = "marketSecondStop";
+            this.marketSecondStop.Size = new System.Drawing.Size(94, 23);
+            this.marketSecondStop.TabIndex = 5;
+            this.marketSecondStop.Text = "Stop";
+            this.marketSecondStop.UseVisualStyleBackColor = true;
+            this.marketSecondStop.Click += new System.EventHandler(this.MarketStopSecondRetainerClick);
+            // 
+            // marketSecondPost
+            // 
+            this.marketSecondPost.Location = new System.Drawing.Point(6, 93);
+            this.marketSecondPost.Name = "marketSecondPost";
+            this.marketSecondPost.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.marketSecondPost.Size = new System.Drawing.Size(80, 25);
+            this.marketSecondPost.TabIndex = 2;
+            this.marketSecondPost.Text = "Post";
+            this.marketSecondPost.UseVisualStyleBackColor = true;
+            this.marketSecondPost.Click += new System.EventHandler(this.MarketPostSecondRetainerClick);
+            // 
+            // marketSecondUndercutLabel
+            // 
+            this.marketSecondUndercutLabel.AutoSize = true;
+            this.marketSecondUndercutLabel.Location = new System.Drawing.Point(112, 153);
+            this.marketSecondUndercutLabel.Name = "marketSecondUndercutLabel";
+            this.marketSecondUndercutLabel.Size = new System.Drawing.Size(89, 13);
+            this.marketSecondUndercutLabel.TabIndex = 22;
+            this.marketSecondUndercutLabel.Text = "Undercut amount";
+            // 
+            // marketSecondUndercut
+            // 
+            this.marketSecondUndercut.Location = new System.Drawing.Point(6, 144);
+            this.marketSecondUndercut.Name = "marketSecondUndercut";
+            this.marketSecondUndercut.Size = new System.Drawing.Size(100, 20);
+            this.marketSecondUndercut.TabIndex = 20;
+            this.marketSecondUndercut.Text = "50";
+            // 
+            // marketSecondResetLabel
+            // 
+            this.marketSecondResetLabel.AutoSize = true;
+            this.marketSecondResetLabel.Location = new System.Drawing.Point(112, 121);
+            this.marketSecondResetLabel.Name = "marketSecondResetLabel";
+            this.marketSecondResetLabel.Size = new System.Drawing.Size(35, 13);
+            this.marketSecondResetLabel.TabIndex = 18;
+            this.marketSecondResetLabel.Text = "Reset";
+            this.marketSecondResetLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // marketSecondMinimumLabel
+            // 
+            this.marketSecondMinimumLabel.AutoSize = true;
+            this.marketSecondMinimumLabel.Location = new System.Drawing.Point(112, 57);
+            this.marketSecondMinimumLabel.Name = "marketSecondMinimumLabel";
+            this.marketSecondMinimumLabel.Size = new System.Drawing.Size(48, 13);
+            this.marketSecondMinimumLabel.TabIndex = 17;
+            this.marketSecondMinimumLabel.Text = "Minimum";
+            this.marketSecondMinimumLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // marketSecondNumberOfItemsLabel
+            // 
+            this.marketSecondNumberOfItemsLabel.AutoSize = true;
+            this.marketSecondNumberOfItemsLabel.Location = new System.Drawing.Point(112, 27);
+            this.marketSecondNumberOfItemsLabel.Name = "marketSecondNumberOfItemsLabel";
+            this.marketSecondNumberOfItemsLabel.Size = new System.Drawing.Size(84, 13);
+            this.marketSecondNumberOfItemsLabel.TabIndex = 16;
+            this.marketSecondNumberOfItemsLabel.Text = "Number of Items";
+            this.marketSecondNumberOfItemsLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // marketSecondReset
+            // 
+            this.marketSecondReset.Location = new System.Drawing.Point(6, 114);
+            this.marketSecondReset.Name = "marketSecondReset";
+            this.marketSecondReset.Size = new System.Drawing.Size(100, 20);
+            this.marketSecondReset.TabIndex = 11;
+            this.marketSecondReset.Text = "500000";
+            // 
+            // marketSecondMinimum
+            // 
+            this.marketSecondMinimum.Location = new System.Drawing.Point(6, 54);
+            this.marketSecondMinimum.Name = "marketSecondMinimum";
+            this.marketSecondMinimum.Size = new System.Drawing.Size(100, 20);
+            this.marketSecondMinimum.TabIndex = 10;
+            this.marketSecondMinimum.Text = "100000";
+            // 
+            // marketSecondNumberOfItems
+            // 
+            this.marketSecondNumberOfItems.Location = new System.Drawing.Point(6, 24);
+            this.marketSecondNumberOfItems.Name = "marketSecondNumberOfItems";
+            this.marketSecondNumberOfItems.Size = new System.Drawing.Size(100, 20);
+            this.marketSecondNumberOfItems.TabIndex = 4;
+            this.marketSecondNumberOfItems.Text = "1";
+            // 
+            // craftingPage
+            // 
+            this.craftingPage.Controls.Add(this.craftingExecute);
+            this.craftingPage.Controls.Add(this.craftingMacrosDropdown);
+            this.craftingPage.Controls.Add(this.craftingMacroRotation);
+            this.craftingPage.Location = new System.Drawing.Point(4, 22);
+            this.craftingPage.Name = "craftingPage";
+            this.craftingPage.Padding = new System.Windows.Forms.Padding(3);
+            this.craftingPage.Size = new System.Drawing.Size(552, 363);
+            this.craftingPage.TabIndex = 0;
+            this.craftingPage.Text = "Crafting";
+            this.craftingPage.UseVisualStyleBackColor = true;
+            // 
+            // craftingExecute
+            // 
+            this.craftingExecute.Location = new System.Drawing.Point(471, 33);
+            this.craftingExecute.Name = "craftingExecute";
+            this.craftingExecute.Size = new System.Drawing.Size(75, 23);
+            this.craftingExecute.TabIndex = 1;
+            this.craftingExecute.Text = "Execute";
+            this.craftingExecute.UseVisualStyleBackColor = true;
+            this.craftingExecute.Click += new System.EventHandler(this.CraftingExecuteButtonClick);
+            // 
+            // craftingMacrosDropdown
+            // 
+            this.craftingMacrosDropdown.FormattingEnabled = true;
+            this.craftingMacrosDropdown.Location = new System.Drawing.Point(282, 6);
+            this.craftingMacrosDropdown.Name = "craftingMacrosDropdown";
+            this.craftingMacrosDropdown.Size = new System.Drawing.Size(264, 21);
+            this.craftingMacrosDropdown.TabIndex = 1;
+            this.craftingMacrosDropdown.SelectedIndexChanged += new System.EventHandler(this.UpdateMacroRTB);
+            // 
+            // craftingMacroRotation
+            // 
+            this.craftingMacroRotation.Location = new System.Drawing.Point(6, 6);
+            this.craftingMacroRotation.Name = "craftingMacroRotation";
+            this.craftingMacroRotation.Size = new System.Drawing.Size(270, 351);
+            this.craftingMacroRotation.TabIndex = 0;
+            this.craftingMacroRotation.Text = "";
+            // 
+            // characterPage
+            // 
+            this.characterPage.Controls.Add(this.characterRefresh);
+            this.characterPage.Controls.Add(this.characterInfo);
+            this.characterPage.Location = new System.Drawing.Point(4, 22);
+            this.characterPage.Name = "characterPage";
+            this.characterPage.Padding = new System.Windows.Forms.Padding(3);
+            this.characterPage.Size = new System.Drawing.Size(552, 363);
+            this.characterPage.TabIndex = 1;
+            this.characterPage.Text = "Character";
+            this.characterPage.UseVisualStyleBackColor = true;
+            // 
+            // characterRefresh
+            // 
+            this.characterRefresh.Location = new System.Drawing.Point(6, 6);
+            this.characterRefresh.Name = "characterRefresh";
+            this.characterRefresh.Size = new System.Drawing.Size(75, 23);
+            this.characterRefresh.TabIndex = 1;
+            this.characterRefresh.Text = "Refresh";
+            this.characterRefresh.UseVisualStyleBackColor = true;
+            this.characterRefresh.Click += new System.EventHandler(this.CharacterRefreshClick);
+            // 
+            // characterInfo
+            // 
+            this.characterInfo.Location = new System.Drawing.Point(6, 35);
+            this.characterInfo.Name = "characterInfo";
+            this.characterInfo.Size = new System.Drawing.Size(540, 322);
+            this.characterInfo.TabIndex = 0;
+            this.characterInfo.Text = "";
+            // 
+            // aboutPage
+            // 
+            this.aboutPage.Location = new System.Drawing.Point(4, 22);
+            this.aboutPage.Name = "aboutPage";
+            this.aboutPage.Padding = new System.Windows.Forms.Padding(3);
+            this.aboutPage.Size = new System.Drawing.Size(552, 363);
+            this.aboutPage.TabIndex = 2;
+            this.aboutPage.Text = "About";
+            this.aboutPage.UseVisualStyleBackColor = true;
+            // 
+            // generalInfoTextbox
+            // 
+            this.generalInfoTextbox.Location = new System.Drawing.Point(12, 403);
+            this.generalInfoTextbox.Name = "generalInfoTextbox";
+            this.generalInfoTextbox.Size = new System.Drawing.Size(560, 347);
+            this.generalInfoTextbox.TabIndex = 1;
+            this.generalInfoTextbox.Text = "";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 762);
-            this.Controls.Add(this.general_info_textbox);
+            this.Controls.Add(this.generalInfoTextbox);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.tabControl1.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
+            this.marketPage.ResumeLayout(false);
+            this.marketFirstRetainerGroupBox.ResumeLayout(false);
+            this.marketFirstRetainerGroupBox.PerformLayout();
+            this.marketFirstStartPointGroupBox.ResumeLayout(false);
+            this.marketSecondRetainerGroupBox.ResumeLayout(false);
+            this.marketSecondRetainerGroupBox.PerformLayout();
+            this.marketSecondStartPointGroupBox.ResumeLayout(false);
+            this.craftingPage.ResumeLayout(false);
+            this.characterPage.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -506,45 +494,44 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.RichTextBox macro_rotation_rtb;
-        private System.Windows.Forms.ComboBox macros_dropdown;
-        private System.Windows.Forms.Button execute_crafting_macro_button;
-        private System.Windows.Forms.RichTextBox character_rtb;
-        private System.Windows.Forms.Button refresh_character_sheet;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Button second_retainer_thread_1;
-        private System.Windows.Forms.TextBox second_retainer_number_of_items_tb;
-        private System.Windows.Forms.TextBox first_retainer_number_of_items_tb;
-        private System.Windows.Forms.RichTextBox general_info_textbox;
-        private System.Windows.Forms.Label first_retainer_minimum_label;
-        private System.Windows.Forms.Label first_retainer_number_of_items_label;
-        private System.Windows.Forms.Label first_retainer_default_label;
-        private System.Windows.Forms.TextBox second_retainer_default_tb;
-        private System.Windows.Forms.TextBox second_retainer_minimum_tb;
-        private System.Windows.Forms.TextBox first_retainer_default_tb;
-        private System.Windows.Forms.TextBox first_retainer_minimum_tb;
-        private System.Windows.Forms.Label second_retainer_default_label;
-        private System.Windows.Forms.Label second_retainer_minimum_label;
-        private System.Windows.Forms.Label second_retainer_number_of_items_label;
-        private System.Windows.Forms.Label second_retainer_undercut_label;
-        private System.Windows.Forms.Label first_retainer_undercut_label;
-        private System.Windows.Forms.TextBox second_retainer_undercut;
-        private System.Windows.Forms.TextBox first_retainer_undercut;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label first_retainer_maximum_laenl;
-        private System.Windows.Forms.TextBox first_retainer_maximum_tb;
-        private System.Windows.Forms.Label second_retainer_maximum_label;
-        private System.Windows.Forms.TextBox second_retainer_maximum_tb;
-        private System.Windows.Forms.Button kill_thread_2;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button test_button;
-        private System.Windows.Forms.Button kill_thread_1;
-        private System.Windows.Forms.Button first_retainer_thread_1;
+        private System.Windows.Forms.TabPage marketPage;
+        private System.Windows.Forms.TabPage craftingPage;
+        private System.Windows.Forms.TabPage characterPage;
+        private System.Windows.Forms.TabPage aboutPage;
+        private System.Windows.Forms.RichTextBox craftingMacroRotation;
+        private System.Windows.Forms.ComboBox craftingMacrosDropdown;
+        private System.Windows.Forms.Button craftingExecute;
+        private System.Windows.Forms.RichTextBox characterInfo;
+        private System.Windows.Forms.Button characterRefresh;
+        private System.Windows.Forms.Button marketSecondPost;
+        private System.Windows.Forms.TextBox marketSecondNumberOfItems;
+        private System.Windows.Forms.TextBox marketFirstNumberOfItems;
+        private System.Windows.Forms.RichTextBox generalInfoTextbox;
+        private System.Windows.Forms.Label marketFirstMinimumLabel;
+        private System.Windows.Forms.Label marketFirstNumberOfItemsLabel;
+        private System.Windows.Forms.Label marketFirstResetLabel;
+        private System.Windows.Forms.TextBox marketSecondReset;
+        private System.Windows.Forms.TextBox marketSecondMinimum;
+        private System.Windows.Forms.TextBox marketFirstReset;
+        private System.Windows.Forms.TextBox marketFirstMinimum;
+        private System.Windows.Forms.Label marketSecondResetLabel;
+        private System.Windows.Forms.Label marketSecondMinimumLabel;
+        private System.Windows.Forms.Label marketSecondNumberOfItemsLabel;
+        private System.Windows.Forms.Label marketSecondUndercutLabel;
+        private System.Windows.Forms.Label marketFirstUndercutLabel;
+        private System.Windows.Forms.TextBox marketSecondUndercut;
+        private System.Windows.Forms.TextBox marketFirstUndercut;
+        private System.Windows.Forms.GroupBox marketFirstRetainerGroupBox;
+        private System.Windows.Forms.GroupBox marketSecondRetainerGroupBox;
+        private System.Windows.Forms.GroupBox marketSecondStartPointGroupBox;
+        private System.Windows.Forms.Label marketFirstMaximumLabel;
+        private System.Windows.Forms.TextBox marketFirstMaximum;
+        private System.Windows.Forms.Label marketSecondMaximumLabel;
+        private System.Windows.Forms.TextBox marketSecondMaximum;
+        private System.Windows.Forms.Button marketSecondStop;
+        private System.Windows.Forms.GroupBox marketFirstStartPointGroupBox;
+        private System.Windows.Forms.Button marketFirstStop;
+        private System.Windows.Forms.Button marketFirstPost;
     }
 }
 

@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Offsets>
   <LastUpdated>5.11</LastUpdated>
-  <target_name></target_name>
-  <max_mana></max_mana>
-  <current_mana></current_mana>
-  <max_hp></max_hp>
-  <current_hp></current_hp>
-  <lowest_marketboard_price>01BFFD60,30,50,110,20,7D8</lowest_marketboard_price>
-  <lowest_marketboard_price_quality></lowest_marketboard_price_quality>
+  <TargetName></TargetName>
+  <MaxMana></MaxMana>
+  <CurrentMana></CurrentMana>
+  <MaxHP></MaxHP>
+  <CurrentHP></CurrentHP>
+  <LowestMarketPrice>01BFFD60,30,50,110,20,7D8</LowestMarketPrice>
  </Offsets>
