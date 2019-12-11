@@ -10,12 +10,18 @@
 
     public class FinalFantasy
     {
+
+
         private const int PROCESS_WM_READ = 0x0010;
 
         private Offsets offsets;
         private KeyboardScanCodes ksc = new KeyboardScanCodes();
+        private Dictionary<string, short> keybinds;
         private Dictionary<string, string[]> macros;
         private Dictionary<string, short[]> craftingSpells;
+        
+        private List<(string, string)> firstItemsForSale;
+        private List<(string, string)> secondItemsForSale;
 
         private Process process;
         private IntPtr processHandle = IntPtr.Zero;
@@ -28,17 +34,28 @@
         public FinalFantasy()
         {
             this.offsets = this.LoadOffsets();
-            ////process = Process.GetProcessesByName("ffxiv_dx11")[0];
-            ////processHandle = OpenProcess(PROCESS_WM_READ, false, process.Id);
-            ////baseAddress = process.MainModule.BaseAddress;
+
+            this.process = Process.GetProcessesByName("ffxiv_dx11")[0];
+            this.processHandle = OpenProcess(PROCESS_WM_READ, false, this.process.Id);
+            this.baseAddress = this.process.MainModule.BaseAddress;
+
+            this.keybinds = this.AssignKeybinds();
             this.craftingSpells = this.CreateCraftingDictionary();
             this.macros = this.CreateMacroDictionary();
+
+            this.firstItemsForSale = new List<(string, string)>();
         }
+
+        public List<(string, string)> GetFirstItemsForSale() => this.firstItemsForSale;
+
+        public List<(string, string)> GetSecondItemsForSale() => this.secondItemsForSale;
 
         public Dictionary<string, string[]> GetMacros() => this.macros;
 
         public Dictionary<string, short[]> GetCraftingSpells() => this.craftingSpells;
 
+        public byte[] GetValueFromRAM(string _offsets, int bytes) => ReadFromMemory(new List<string>(_offsets.Split(',')), bytes);
+ 
         public string GetTargetName() => Encoding.ASCII.GetString(this.ReadFromMemory(this.offsets.TargetName, 24));
 
         public int GetMaxMana() => BitConverter.ToInt32(this.ReadFromMemory(this.offsets.MaxMana, 4), 0);
@@ -51,163 +68,85 @@
 
         public int GetLowestMarketboardPrice() => BitConverter.ToInt32(this.ReadFromMemory(this.offsets.LowestMarketPrice, 4), 0);
 
-        public int GetLowestMarketboardPriceQuality(List<string> quality_offsets) => BitConverter.ToInt32(this.ReadFromMemory(quality_offsets, 4), 0);
-
-        public int GetNextPrice()
+        public int GetFirstHQPrice()
         {
-            var next_price = new List<string>(this.offsets.LowestMarketPrice);
-            next_price[next_price.Count - 1] = (Convert.ToInt32(this.offsets.LowestMarketPrice[this.offsets.LowestMarketPrice.Count - 1], 16) + 0x18).ToString("X").ToString();
-            Console.WriteLine(this.offsets.LowestMarketPrice[this.offsets.LowestMarketPrice.Count - 1].ToString());
-            Console.WriteLine(next_price[next_price.Count - 1].ToString());
-            return BitConverter.ToInt32(this.ReadFromMemory(next_price, 4), 0);
+            var currentPtr = new List<string>(this.offsets.LowestMarketPrice);
+            var qualityOffset = new List<string>(this.offsets.LowestMarketPrice);
+
+            qualityOffset[qualityOffset.Count - 1] = (Convert.ToInt32(currentPtr[currentPtr.Count - 1], 16) + 0x08).ToString("X").ToString();
+
+
+            if (BitConverter.ToInt32(this.ReadFromMemory(qualityOffset, 4), 0) == 1)
+            {
+                return BitConverter.ToInt32(this.ReadFromMemory(currentPtr, 4), 0);
+            }
+
+            while (BitConverter.ToInt32(this.ReadFromMemory(qualityOffset, 4), 0) == 0)
+            {
+                currentPtr[currentPtr.Count - 1] = (Convert.ToInt32(currentPtr[currentPtr.Count - 1], 16) + 0x18).ToString("X").ToString();
+                qualityOffset[qualityOffset.Count - 1] = (Convert.ToInt32(currentPtr[currentPtr.Count - 1], 16) + 0x08).ToString("X").ToString();
+                if (BitConverter.ToInt32(this.ReadFromMemory(qualityOffset, 4), 0) == 1)
+                {
+                    return BitConverter.ToInt32(this.ReadFromMemory(currentPtr, 4), 0);
+                }
+            }
+
+            return -1;
         }
 
-        public int GetQuality()
+        public (string, string) LoadFirstSellList()
         {
-            var quality_offsets = new List<string>(this.offsets.LowestMarketPrice);
-            quality_offsets[quality_offsets.Count - 1] = (Convert.ToInt32(this.offsets.LowestMarketPrice[this.offsets.LowestMarketPrice.Count - 1], 16) + 0x08).ToString("X").ToString();
+            //this.firstItemsForSale = new List<(string, string)>();
 
-            return this.GetLowestMarketboardPriceQuality(quality_offsets);
+            var namePtr = new List<string>(this.offsets.RetainerSellList);
+            namePtr[namePtr.Count - 1] = (Convert.ToInt32(namePtr[namePtr.Count - 1], 16) + 0x2A0).ToString("X").ToString();
+            var pricePtr = new List<string>(namePtr);
+            pricePtr[pricePtr.Count - 1] = (Convert.ToInt32(namePtr[namePtr.Count - 1], 16) + 0x5A).ToString("X").ToString();
+
+            this.firstItemsForSale.Add(( Encoding.ASCII.GetString(this.ReadFromMemory(namePtr, 24)), Encoding.ASCII.GetString(this.ReadFromMemory(pricePtr, 9))));
+
+            //firstItemsForSale.Add(("0", BitConverter.ToInt64(this.ReadFromMemory(this.offsets.RetainerSellList, 4), 0) ));
+            //Console.WriteLine(int.Parse(Encoding.ASCII.GetString(this.ReadFromMemory(pricePtr, 9))));
+            return firstItemsForSale[0];
+            //return ("0", 0);
         }
-
+              
         public void SendKeyDown(short key) => PostMessage(this.process.MainWindowHandle, 0x100, (IntPtr)key, IntPtr.Zero);
 
         public void SendKeyUp(short key) => PostMessage(this.process.MainWindowHandle, 0x101, (IntPtr)key, IntPtr.Zero);
 
-        public void SendKeyDownUp(short key)
+        public void SendKeyDownUp(short key, int sleepTimer)
         {
             this.SendKeyDown(key);
             this.SendKeyUp(key);
+            Thread.Sleep(sleepTimer);
         }
 
-        public void PostFirstRetainer(int numberOfItems, int minimumPrice, int maximumPrice, int undercut, int resetPrice)
+        public IEnumerable<string> PostFirstRetainer(int numberOfItems, int minimumPrice, int maximumPrice, int undercut, int resetPrice, bool? quality)
         {
-            short select = this.ksc.get_key_code("NUMPAD0");
-
             Thread.Sleep(1000);
-            this.SendKeyDownUp(select);
-            Thread.Sleep(250);
-            this.SendKeyDownUp(select);
-            Thread.Sleep(2000);
-            this.SendKeyDownUp(select);
-            Thread.Sleep(1000);
+            this.SendKeyDownUp(this.keybinds["select"], 250);
+            this.SendKeyDownUp(this.keybinds["select"], 2000);
+            this.SendKeyDownUp(this.keybinds["select"], 1000);
 
-            this.MarketUpdatePrices(numberOfItems, minimumPrice, maximumPrice, undercut, resetPrice);
-        }
-
-        public void PostSecondRetainer(int numberOfItems, int minimumPrice, int maximumPrice, int undercut, int resetPrice)
-        {
-            short select = this.ksc.get_key_code("NUMPAD0");
-            short down = this.ksc.get_key_code("NUMPAD2");
-
-            Thread.Sleep(1000);
-            this.SendKeyDownUp(down);
-            Thread.Sleep(100);
-            this.SendKeyDownUp(down);
-            Thread.Sleep(100);
-            this.SendKeyDownUp(select);
-            Thread.Sleep(3000);
-            this.SendKeyDownUp(select);
-            Thread.Sleep(1000);
-
-            this.MarketUpdatePrices(numberOfItems, minimumPrice, maximumPrice, undercut, resetPrice);
-        }
-
-        public void MarketUpdatePrices(int numberOfItems, int minimumPrice, int maximumPrice, int undercut, int resetPrice)
-        {
-            int lowest_price = 0;
-            int new_price = 0;
-
-            short select = this.ksc.get_key_code("NUMPAD0");
-            short up = this.ksc.get_key_code("NUMPAD8");
-            short down = this.ksc.get_key_code("NUMPAD2");
-            short escape = this.ksc.get_key_code("ESCAPE");
-            short enter = this.ksc.get_key_code("RETURN");
-
-            Thread.Sleep(1000);
-            this.SendKeyDownUp(down);
-            Thread.Sleep(250);
-            this.SendKeyDownUp(down);
-            Thread.Sleep(250);
-            this.SendKeyDownUp(select);
-            Thread.Sleep(1000);
-
-            for (int loop_counter = 0; loop_counter < numberOfItems; loop_counter++)
+            foreach (var result in this.MarketUpdatePrices(numberOfItems, minimumPrice, maximumPrice, undercut, resetPrice, quality))
             {
-                this.SendKeyDownUp(select);
-                Thread.Sleep(150);
-                this.SendKeyDownUp(select);
-                Thread.Sleep(150);
-                this.SendKeyDownUp(up);
-                Thread.Sleep(150);
-                this.SendKeyDownUp(select);
-                Thread.Sleep(1500);
-
-                // this.AppendTextBox("Updating item #" + loop_counter + "\n");
-                if (this.GetQuality() == 0)
-                {
-                    // this.AppendTextBox(". . . First listed item is low quality\n");
-                    // this.AppendTextBox(". . . Price of second item :" + this.ffxiv.GetNextPrice() + "\n");
-                    lowest_price = this.GetNextPrice();
-                }
-                else
-                {
-                    lowest_price = this.GetLowestMarketboardPrice();
-                }
-
-                new_price = lowest_price - undercut;
-
-                // this.AppendTextBox(". . . lowest price: " + lowest_price + "\n");
-                if (new_price < minimumPrice)
-                {
-                    // this.AppendTextBox(". . . item under minimum price, posting at default");
-                    new_price = resetPrice;
-                }
-
-                if (new_price > maximumPrice)
-                {
-                    // this.AppendTextBox(". . . item over maximum price, posting at default");
-                    new_price = resetPrice;
-                }
-
-                // this.AppendTextBox(". . . posted price: " + new_price + "\n");
-                this.SendKeyDownUp(escape);
-                Thread.Sleep(150);
-                this.SendKeyDownUp(down);
-                Thread.Sleep(150);
-                this.SendKeyDownUp(select);
-                Thread.Sleep(150);
-                this.SendKeyDownUp(enter);
-                Thread.Sleep(150);
-                this.SendKeyDownUp(escape);
-                Thread.Sleep(150);
-
-                foreach (char letter in new_price.ToString())
-                {
-                    this.SendKeyDown(this.ksc.get_key_code(letter.ToString()));
-                    Thread.Sleep(50);
-                }
-
-                this.SendKeyDownUp(enter);
-                Thread.Sleep(150);
-                this.SendKeyDownUp(down);
-                Thread.Sleep(100);
-                this.SendKeyDownUp(down);
-                Thread.Sleep(100);
-                this.SendKeyDownUp(select);
-                Thread.Sleep(250);
-                this.SendKeyDownUp(down);
-                Thread.Sleep(100);
+                yield return result;
             }
+        }
 
-            this.SendKeyDownUp(escape);
-            Thread.Sleep(150);
-            this.SendKeyDownUp(escape);
-            Thread.Sleep(150);
-            this.SendKeyDownUp(select);
-            Thread.Sleep(150);
-            this.SendKeyDownUp(escape);
-            Thread.Sleep(150);
+        public IEnumerable<string> PostSecondRetainer(int numberOfItems, int minimumPrice, int maximumPrice, int undercut, int resetPrice, bool? quality)
+        {
+            Thread.Sleep(1000);
+            this.SendKeyDownUp(this.keybinds["down"], 100);
+            this.SendKeyDownUp(this.keybinds["down"], 100);
+            this.SendKeyDownUp(this.keybinds["select"], 3000);
+            this.SendKeyDownUp(this.keybinds["select"], 1000);
+
+            foreach (var result in this.MarketUpdatePrices(numberOfItems, minimumPrice, maximumPrice, undercut, resetPrice, quality))
+            {
+                yield return result;
+            }
         }
 
         [DllImport("kernel32.dll")]
@@ -218,6 +157,84 @@
 
         [DllImport("user32.dll")]
         private static extern IntPtr PostMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+
+        private IEnumerable<string> MarketUpdatePrices(int numberOfItems, int minimumPrice, int maximumPrice, int undercut, int resetPrice, bool? ignoreQuality)
+        {
+            int lowestPrice = 0;
+            int newPrice = 0;
+
+            Thread.Sleep(1000);
+            this.SendKeyDownUp(this.keybinds["down"], 250);
+            this.SendKeyDownUp(this.keybinds["down"], 250);
+            this.SendKeyDownUp(this.keybinds["select"], 1000);
+            Thread.Sleep(1000);
+            for (int loopCounter = 0; loopCounter < numberOfItems; loopCounter++)
+            {
+                this.SendKeyDownUp(this.keybinds["select"], 150);
+                this.SendKeyDownUp(this.keybinds["select"], 150);
+                this.SendKeyDownUp(this.keybinds["up"], 150);
+                this.SendKeyDownUp(this.keybinds["select"], 1500);
+                
+                yield return "Updating item #" + loopCounter + "\n";
+
+                if (ignoreQuality is true)
+                {
+                    lowestPrice = this.GetLowestMarketboardPrice();
+                    yield return ". . . ignoring quality, lowest price: " + lowestPrice;
+                }
+                else
+                {
+                    lowestPrice = this.GetFirstHQPrice();
+                    yield return ". . . first HQ price: " + lowestPrice;
+
+                }
+                newPrice = lowestPrice - undercut;
+
+                if (lowestPrice == -1)
+                {
+                    yield return ". . . no HQ items found, posting at reset price.";
+                    newPrice = resetPrice;
+                }
+                else
+                {
+                    if (lowestPrice < minimumPrice)
+                    {
+                        yield return ". . . item under minimum price, posting at default";
+                        newPrice = resetPrice;
+                    }
+                    else if (newPrice > maximumPrice)
+                    {
+                        yield return ". . . item over maximum price, posting at default";
+                        newPrice = resetPrice;
+                    }
+                }
+
+                yield return ". . . posting at: " + newPrice + "\n";
+
+                this.SendKeyDownUp(this.keybinds["escape"], 150);
+                this.SendKeyDownUp(this.keybinds["down"], 150);
+                this.SendKeyDownUp(this.keybinds["select"], 150);
+                this.SendKeyDownUp(this.keybinds["enter"], 150);
+                this.SendKeyDownUp(this.keybinds["escape"], 150);
+                
+                foreach (char letter in newPrice.ToString())
+                {
+                    this.SendKeyDown(this.ksc.get_key_code(letter.ToString()));
+                    Thread.Sleep(50);
+                }
+
+                this.SendKeyDownUp(this.keybinds["enter"], 150);
+                this.SendKeyDownUp(this.keybinds["down"], 100);
+                this.SendKeyDownUp(this.keybinds["down"], 100);
+                this.SendKeyDownUp(this.keybinds["select"], 250);
+                this.SendKeyDownUp(this.keybinds["down"], 100);
+            }
+            
+            this.SendKeyDownUp(this.keybinds["escape"], 150);
+            this.SendKeyDownUp(this.keybinds["escape"], 150);
+            this.SendKeyDownUp(this.keybinds["select"], 150);
+            this.SendKeyDownUp(this.keybinds["escape"], 150);
+        }
 
         private Offsets LoadOffsets()
         {
@@ -231,6 +248,7 @@
             offsets.CurrentMana = new List<string>(doc.SelectSingleNode("Offsets/CurrentMana").InnerXml.Split(','));
             offsets.MaxMana = new List<string>(doc.SelectSingleNode("Offsets/MaxMana").InnerXml.Split(','));
             offsets.LowestMarketPrice = new List<string>(doc.SelectSingleNode("Offsets/LowestMarketPrice").InnerXml.Split(','));
+            offsets.RetainerSellList = new List<string>(doc.SelectSingleNode("Offsets/RetainerSellList").InnerXml.Split(','));
 
             return offsets;
         }
@@ -294,6 +312,18 @@
             };
         }
 
+        private Dictionary<string, short> AssignKeybinds()
+        {
+            return new Dictionary<string, short>()
+            {
+                { "select", this.ksc.get_key_code("NUMPAD0") },
+                { "up", this.ksc.get_key_code("NUMPAD8") },
+                { "down", this.ksc.get_key_code("NUMPAD2") },
+                { "escape", this.ksc.get_key_code("ESCAPE") },
+                { "enter", this.ksc.get_key_code("RETURN") }
+            };
+        }
+
         private byte[] ReadFromMemory(List<string> offsets, int bytes)
         {
             int bytesRead = 0;
@@ -303,19 +333,19 @@
             
             ReadProcessMemory((int)this.processHandle, this.readAddress.ToInt64(), buffer, buffer.Length, ref bytesRead);
 
-            int loop_counter = 0;
+            int loopCounter = 0;
 
             foreach (var ptr in offsets)
             {
                 // Skip the first element, we already added it in above.
-                if (loop_counter > 0)
+                if (loopCounter > 0)
                 {
                     this.newAddress = BitConverter.ToInt64(buffer, 0);
                     this.newAddress += Convert.ToInt32(ptr, 16);
                     ReadProcessMemory((int)this.processHandle, this.newAddress, buffer, buffer.Length, ref bytesRead);
                 }
 
-                loop_counter++;
+                loopCounter++;
             }
 
             bytesRead = 0;
@@ -325,6 +355,7 @@
 
             return buffer;
         }
+
 
         private class Offsets
         {
@@ -339,6 +370,8 @@
             public List<string> MaxMana { get; set; }
 
             public List<string> LowestMarketPrice { get; set; }
+
+            public List<string> RetainerSellList { get; set; }
         }
     }
 }

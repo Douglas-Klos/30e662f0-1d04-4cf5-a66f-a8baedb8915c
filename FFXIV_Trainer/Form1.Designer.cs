@@ -31,9 +31,11 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.marketPage = new System.Windows.Forms.TabPage();
             this.marketFirstRetainerGroupBox = new System.Windows.Forms.GroupBox();
+            this.marketFirstIgnoreQuality = new System.Windows.Forms.CheckBox();
             this.marketFirstMaximumLabel = new System.Windows.Forms.Label();
             this.marketFirstMaximum = new System.Windows.Forms.TextBox();
             this.marketFirstStartPointGroupBox = new System.Windows.Forms.GroupBox();
+            this.marketFirstLoadSellList = new System.Windows.Forms.Button();
             this.marketFirstStop = new System.Windows.Forms.Button();
             this.marketFirstPost = new System.Windows.Forms.Button();
             this.marketFirstUndercutLabel = new System.Windows.Forms.Label();
@@ -45,6 +47,7 @@
             this.marketFirstNumberOfItemsLabel = new System.Windows.Forms.Label();
             this.marketFirstNumberOfItems = new System.Windows.Forms.TextBox();
             this.marketSecondRetainerGroupBox = new System.Windows.Forms.GroupBox();
+            this.marketSecondIgnoreQuality = new System.Windows.Forms.CheckBox();
             this.marketSecondMaximumLabel = new System.Windows.Forms.Label();
             this.marketSecondMaximum = new System.Windows.Forms.TextBox();
             this.marketSecondStartPointGroupBox = new System.Windows.Forms.GroupBox();
@@ -65,7 +68,14 @@
             this.characterPage = new System.Windows.Forms.TabPage();
             this.characterRefresh = new System.Windows.Forms.Button();
             this.characterInfo = new System.Windows.Forms.RichTextBox();
-            this.aboutPage = new System.Windows.Forms.TabPage();
+            this.devPage = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.devGetRAMValueInputTB = new System.Windows.Forms.TextBox();
+            this.devGetRAMIntValueButton = new System.Windows.Forms.Button();
+            this.devGetRAMStringValueButton = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.devLowestMBPriceButton = new System.Windows.Forms.Button();
+            this.devGetFirstHQPriceButton = new System.Windows.Forms.Button();
             this.generalInfoTextbox = new System.Windows.Forms.RichTextBox();
             this.tabControl1.SuspendLayout();
             this.marketPage.SuspendLayout();
@@ -75,6 +85,9 @@
             this.marketSecondStartPointGroupBox.SuspendLayout();
             this.craftingPage.SuspendLayout();
             this.characterPage.SuspendLayout();
+            this.devPage.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -82,7 +95,7 @@
             this.tabControl1.Controls.Add(this.marketPage);
             this.tabControl1.Controls.Add(this.craftingPage);
             this.tabControl1.Controls.Add(this.characterPage);
-            this.tabControl1.Controls.Add(this.aboutPage);
+            this.tabControl1.Controls.Add(this.devPage);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -103,6 +116,7 @@
             // 
             // marketFirstRetainerGroupBox
             // 
+            this.marketFirstRetainerGroupBox.Controls.Add(this.marketFirstIgnoreQuality);
             this.marketFirstRetainerGroupBox.Controls.Add(this.marketFirstMaximumLabel);
             this.marketFirstRetainerGroupBox.Controls.Add(this.marketFirstMaximum);
             this.marketFirstRetainerGroupBox.Controls.Add(this.marketFirstStartPointGroupBox);
@@ -120,6 +134,17 @@
             this.marketFirstRetainerGroupBox.TabIndex = 24;
             this.marketFirstRetainerGroupBox.TabStop = false;
             this.marketFirstRetainerGroupBox.Text = "First Retainer";
+            // 
+            // marketFirstIgnoreQuality
+            // 
+            this.marketFirstIgnoreQuality.AutoSize = true;
+            this.marketFirstIgnoreQuality.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.marketFirstIgnoreQuality.Location = new System.Drawing.Point(95, 187);
+            this.marketFirstIgnoreQuality.Name = "marketFirstIgnoreQuality";
+            this.marketFirstIgnoreQuality.Size = new System.Drawing.Size(91, 17);
+            this.marketFirstIgnoreQuality.TabIndex = 27;
+            this.marketFirstIgnoreQuality.Text = "Ignore Quality";
+            this.marketFirstIgnoreQuality.UseVisualStyleBackColor = true;
             // 
             // marketFirstMaximumLabel
             // 
@@ -140,18 +165,29 @@
             // 
             // marketFirstStartPointGroupBox
             // 
+            this.marketFirstStartPointGroupBox.Controls.Add(this.marketFirstLoadSellList);
             this.marketFirstStartPointGroupBox.Controls.Add(this.marketFirstStop);
             this.marketFirstStartPointGroupBox.Controls.Add(this.marketFirstPost);
-            this.marketFirstStartPointGroupBox.Location = new System.Drawing.Point(6, 214);
+            this.marketFirstStartPointGroupBox.Location = new System.Drawing.Point(6, 249);
             this.marketFirstStartPointGroupBox.Name = "marketFirstStartPointGroupBox";
-            this.marketFirstStartPointGroupBox.Size = new System.Drawing.Size(243, 129);
+            this.marketFirstStartPointGroupBox.Size = new System.Drawing.Size(243, 96);
             this.marketFirstStartPointGroupBox.TabIndex = 23;
             this.marketFirstStartPointGroupBox.TabStop = false;
             this.marketFirstStartPointGroupBox.Text = "First Retainer Starting Point";
             // 
+            // marketFirstLoadSellList
+            // 
+            this.marketFirstLoadSellList.Location = new System.Drawing.Point(6, 33);
+            this.marketFirstLoadSellList.Name = "marketFirstLoadSellList";
+            this.marketFirstLoadSellList.Size = new System.Drawing.Size(80, 23);
+            this.marketFirstLoadSellList.TabIndex = 25;
+            this.marketFirstLoadSellList.Text = "Load SellList";
+            this.marketFirstLoadSellList.UseVisualStyleBackColor = true;
+            this.marketFirstLoadSellList.Click += new System.EventHandler(this.marketFirstLoadSellList_Click);
+            // 
             // marketFirstStop
             // 
-            this.marketFirstStop.Location = new System.Drawing.Point(143, 100);
+            this.marketFirstStop.Location = new System.Drawing.Point(143, 62);
             this.marketFirstStop.Name = "marketFirstStop";
             this.marketFirstStop.Size = new System.Drawing.Size(94, 23);
             this.marketFirstStop.TabIndex = 4;
@@ -161,7 +197,7 @@
             // 
             // marketFirstPost
             // 
-            this.marketFirstPost.Location = new System.Drawing.Point(6, 98);
+            this.marketFirstPost.Location = new System.Drawing.Point(6, 62);
             this.marketFirstPost.Name = "marketFirstPost";
             this.marketFirstPost.Size = new System.Drawing.Size(80, 23);
             this.marketFirstPost.TabIndex = 3;
@@ -210,7 +246,7 @@
             this.marketFirstMinimum.Name = "marketFirstMinimum";
             this.marketFirstMinimum.Size = new System.Drawing.Size(100, 20);
             this.marketFirstMinimum.TabIndex = 8;
-            this.marketFirstMinimum.Text = "100000";
+            this.marketFirstMinimum.Text = "80000";
             // 
             // marketFirstMinimumLabel
             // 
@@ -242,6 +278,7 @@
             // 
             // marketSecondRetainerGroupBox
             // 
+            this.marketSecondRetainerGroupBox.Controls.Add(this.marketSecondIgnoreQuality);
             this.marketSecondRetainerGroupBox.Controls.Add(this.marketSecondMaximumLabel);
             this.marketSecondRetainerGroupBox.Controls.Add(this.marketSecondMaximum);
             this.marketSecondRetainerGroupBox.Controls.Add(this.marketSecondStartPointGroupBox);
@@ -259,6 +296,16 @@
             this.marketSecondRetainerGroupBox.TabIndex = 23;
             this.marketSecondRetainerGroupBox.TabStop = false;
             this.marketSecondRetainerGroupBox.Text = "Second Retainer";
+            // 
+            // marketSecondIgnoreQuality
+            // 
+            this.marketSecondIgnoreQuality.AutoSize = true;
+            this.marketSecondIgnoreQuality.Location = new System.Drawing.Point(72, 187);
+            this.marketSecondIgnoreQuality.Name = "marketSecondIgnoreQuality";
+            this.marketSecondIgnoreQuality.Size = new System.Drawing.Size(91, 17);
+            this.marketSecondIgnoreQuality.TabIndex = 28;
+            this.marketSecondIgnoreQuality.Text = "Ignore Quality";
+            this.marketSecondIgnoreQuality.UseVisualStyleBackColor = true;
             // 
             // marketSecondMaximumLabel
             // 
@@ -281,16 +328,16 @@
             // 
             this.marketSecondStartPointGroupBox.Controls.Add(this.marketSecondStop);
             this.marketSecondStartPointGroupBox.Controls.Add(this.marketSecondPost);
-            this.marketSecondStartPointGroupBox.Location = new System.Drawing.Point(6, 219);
+            this.marketSecondStartPointGroupBox.Location = new System.Drawing.Point(6, 249);
             this.marketSecondStartPointGroupBox.Name = "marketSecondStartPointGroupBox";
-            this.marketSecondStartPointGroupBox.Size = new System.Drawing.Size(262, 124);
+            this.marketSecondStartPointGroupBox.Size = new System.Drawing.Size(262, 96);
             this.marketSecondStartPointGroupBox.TabIndex = 23;
             this.marketSecondStartPointGroupBox.TabStop = false;
             this.marketSecondStartPointGroupBox.Text = "Second Retainer Starting Point";
             // 
             // marketSecondStop
             // 
-            this.marketSecondStop.Location = new System.Drawing.Point(162, 93);
+            this.marketSecondStop.Location = new System.Drawing.Point(162, 62);
             this.marketSecondStop.Name = "marketSecondStop";
             this.marketSecondStop.Size = new System.Drawing.Size(94, 23);
             this.marketSecondStop.TabIndex = 5;
@@ -300,7 +347,7 @@
             // 
             // marketSecondPost
             // 
-            this.marketSecondPost.Location = new System.Drawing.Point(6, 93);
+            this.marketSecondPost.Location = new System.Drawing.Point(6, 61);
             this.marketSecondPost.Name = "marketSecondPost";
             this.marketSecondPost.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.marketSecondPost.Size = new System.Drawing.Size(80, 25);
@@ -370,7 +417,7 @@
             this.marketSecondMinimum.Name = "marketSecondMinimum";
             this.marketSecondMinimum.Size = new System.Drawing.Size(100, 20);
             this.marketSecondMinimum.TabIndex = 10;
-            this.marketSecondMinimum.Text = "100000";
+            this.marketSecondMinimum.Text = "80000";
             // 
             // marketSecondNumberOfItems
             // 
@@ -450,19 +497,92 @@
             this.characterInfo.TabIndex = 0;
             this.characterInfo.Text = "";
             // 
-            // aboutPage
+            // devPage
             // 
-            this.aboutPage.Location = new System.Drawing.Point(4, 22);
-            this.aboutPage.Name = "aboutPage";
-            this.aboutPage.Padding = new System.Windows.Forms.Padding(3);
-            this.aboutPage.Size = new System.Drawing.Size(552, 363);
-            this.aboutPage.TabIndex = 2;
-            this.aboutPage.Text = "About";
-            this.aboutPage.UseVisualStyleBackColor = true;
+            this.devPage.Controls.Add(this.groupBox2);
+            this.devPage.Controls.Add(this.groupBox1);
+            this.devPage.Location = new System.Drawing.Point(4, 22);
+            this.devPage.Name = "devPage";
+            this.devPage.Padding = new System.Windows.Forms.Padding(3);
+            this.devPage.Size = new System.Drawing.Size(552, 363);
+            this.devPage.TabIndex = 2;
+            this.devPage.Text = "Dev";
+            this.devPage.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.devGetRAMValueInputTB);
+            this.groupBox2.Controls.Add(this.devGetRAMIntValueButton);
+            this.groupBox2.Controls.Add(this.devGetRAMStringValueButton);
+            this.groupBox2.Location = new System.Drawing.Point(6, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(310, 74);
+            this.groupBox2.TabIndex = 9;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Read Memory";
+            // 
+            // devGetRAMValueInputTB
+            // 
+            this.devGetRAMValueInputTB.Location = new System.Drawing.Point(6, 19);
+            this.devGetRAMValueInputTB.Name = "devGetRAMValueInputTB";
+            this.devGetRAMValueInputTB.Size = new System.Drawing.Size(298, 20);
+            this.devGetRAMValueInputTB.TabIndex = 2;
+            this.devGetRAMValueInputTB.Text = "01BFFD60,10,170,2AA";
+            // 
+            // devGetRAMIntValueButton
+            // 
+            this.devGetRAMIntValueButton.Location = new System.Drawing.Point(6, 45);
+            this.devGetRAMIntValueButton.Name = "devGetRAMIntValueButton";
+            this.devGetRAMIntValueButton.Size = new System.Drawing.Size(79, 23);
+            this.devGetRAMIntValueButton.TabIndex = 3;
+            this.devGetRAMIntValueButton.Text = "Integer";
+            this.devGetRAMIntValueButton.UseVisualStyleBackColor = true;
+            this.devGetRAMIntValueButton.Click += new System.EventHandler(this.DevGetRAMValueIntButton_Click);
+            // 
+            // devGetRAMStringValueButton
+            // 
+            this.devGetRAMStringValueButton.Location = new System.Drawing.Point(91, 45);
+            this.devGetRAMStringValueButton.Name = "devGetRAMStringValueButton";
+            this.devGetRAMStringValueButton.Size = new System.Drawing.Size(79, 23);
+            this.devGetRAMStringValueButton.TabIndex = 7;
+            this.devGetRAMStringValueButton.Text = "String";
+            this.devGetRAMStringValueButton.UseVisualStyleBackColor = true;
+            this.devGetRAMStringValueButton.Click += new System.EventHandler(this.devGetRAMStringValueButton_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.devLowestMBPriceButton);
+            this.groupBox1.Controls.Add(this.devGetFirstHQPriceButton);
+            this.groupBox1.Location = new System.Drawing.Point(322, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(224, 351);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Methods";
+            // 
+            // devLowestMBPriceButton
+            // 
+            this.devLowestMBPriceButton.Location = new System.Drawing.Point(6, 322);
+            this.devLowestMBPriceButton.Name = "devLowestMBPriceButton";
+            this.devLowestMBPriceButton.Size = new System.Drawing.Size(75, 23);
+            this.devLowestMBPriceButton.TabIndex = 0;
+            this.devLowestMBPriceButton.Text = "Lowest MB";
+            this.devLowestMBPriceButton.UseVisualStyleBackColor = true;
+            this.devLowestMBPriceButton.Click += new System.EventHandler(this.DevLowestMBPriceButton_Click);
+            // 
+            // devGetFirstHQPriceButton
+            // 
+            this.devGetFirstHQPriceButton.Location = new System.Drawing.Point(6, 293);
+            this.devGetFirstHQPriceButton.Name = "devGetFirstHQPriceButton";
+            this.devGetFirstHQPriceButton.Size = new System.Drawing.Size(75, 23);
+            this.devGetFirstHQPriceButton.TabIndex = 5;
+            this.devGetFirstHQPriceButton.Text = "First HQ";
+            this.devGetFirstHQPriceButton.UseVisualStyleBackColor = true;
+            this.devGetFirstHQPriceButton.Click += new System.EventHandler(this.devGetFirstHQPriceButton_Click);
             // 
             // generalInfoTextbox
             // 
-            this.generalInfoTextbox.Location = new System.Drawing.Point(12, 403);
+            this.generalInfoTextbox.Location = new System.Drawing.Point(12, 407);
             this.generalInfoTextbox.Name = "generalInfoTextbox";
             this.generalInfoTextbox.Size = new System.Drawing.Size(560, 347);
             this.generalInfoTextbox.TabIndex = 1;
@@ -487,6 +607,10 @@
             this.marketSecondStartPointGroupBox.ResumeLayout(false);
             this.craftingPage.ResumeLayout(false);
             this.characterPage.ResumeLayout(false);
+            this.devPage.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -497,7 +621,7 @@
         private System.Windows.Forms.TabPage marketPage;
         private System.Windows.Forms.TabPage craftingPage;
         private System.Windows.Forms.TabPage characterPage;
-        private System.Windows.Forms.TabPage aboutPage;
+        private System.Windows.Forms.TabPage devPage;
         private System.Windows.Forms.RichTextBox craftingMacroRotation;
         private System.Windows.Forms.ComboBox craftingMacrosDropdown;
         private System.Windows.Forms.Button craftingExecute;
@@ -532,6 +656,16 @@
         private System.Windows.Forms.GroupBox marketFirstStartPointGroupBox;
         private System.Windows.Forms.Button marketFirstStop;
         private System.Windows.Forms.Button marketFirstPost;
+        private System.Windows.Forms.CheckBox marketFirstIgnoreQuality;
+        private System.Windows.Forms.CheckBox marketSecondIgnoreQuality;
+        private System.Windows.Forms.Button devLowestMBPriceButton;
+        private System.Windows.Forms.Button devGetRAMIntValueButton;
+        private System.Windows.Forms.TextBox devGetRAMValueInputTB;
+        private System.Windows.Forms.Button devGetFirstHQPriceButton;
+        private System.Windows.Forms.Button devGetRAMStringValueButton;
+        private System.Windows.Forms.Button marketFirstLoadSellList;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 
